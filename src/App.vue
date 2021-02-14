@@ -1,32 +1,25 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <q-layout view="lHh Lpr lFf" id="app" class="bg-grey-4">
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+  </q-layout>
 </template>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  font-family: "Nunito", sans-serif;
 }
-
-#nav {
-  padding: 30px;
+.w300 {
+  font-weight: 300 !important;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.w400 {
+  font-weight: 400 !important;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.w600 {
+  font-weight: 600 !important;
+}
+.w700 {
+  font-weight: 700 !important;
 }
 </style>

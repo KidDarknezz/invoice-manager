@@ -1,0 +1,145 @@
+<template>
+  <q-page>
+    <div class="row q-pt-xl">
+      <q-space />
+      <div class="col-lg-7">
+        <div class="row q-mb-md q-px-md">
+          <div class="text-h4 w700 text-dark">Clients</div>
+        </div>
+        <div class="row q-mb-md q-px-md">
+          <q-btn
+            flat
+            label="Back"
+            class="w700"
+            icon="fas fa-long-arrow-alt-left"
+            rounded
+            size="sm"
+            to="/"
+            color="dark"
+          />
+        </div>
+        <div class="row">
+          <div class="col-lg-8 q-px-md">
+            <div class="row">
+              <q-table
+                class="full-width"
+                :data="clients"
+                :columns="columns"
+                row-key="name"
+                binary-state-sort
+                :pagination="{ rowsPerPage: 15 }"
+              >
+                <template v-slot:body="props">
+                  <q-tr :props="props">
+                    <q-td key="name" :props="props">{{ props.row.name }}</q-td>
+                    <q-td key="email" :props="props">{{
+                      props.row.email
+                    }}</q-td>
+                    <q-td key="phone" :props="props">{{
+                      props.row.phone
+                    }}</q-td>
+                    <q-td>
+                      <q-btn-group rounded flat>
+                        <q-btn icon="edit" size="sm" color="secondary" flat />
+                        <q-btn icon="delete" size="sm" flat color="dark" />
+                      </q-btn-group>
+                    </q-td>
+                  </q-tr>
+                </template>
+              </q-table>
+            </div>
+          </div>
+          <div class="col-lg-4 q-px-md">
+            <q-card>
+              <q-card-section>
+                <div class="text-h6 w700 text-dark">
+                  New client
+                </div>
+              </q-card-section>
+              <q-card-section>
+                <q-input
+                  label="Name"
+                  filled
+                  color="secondary"
+                  class="q-mb-md"
+                />
+                <q-input
+                  label="Email"
+                  filled
+                  color="secondary"
+                  class="q-mb-md"
+                />
+                <q-input
+                  label="Phone"
+                  filled
+                  color="secondary"
+                  class="q-mb-md"
+                />
+              </q-card-section>
+              <q-card-actions>
+                <q-space />
+                <q-btn label="Save" flat color="dark" class="w700" rounded />
+              </q-card-actions>
+            </q-card>
+          </div>
+        </div>
+      </div>
+      <q-space />
+    </div>
+  </q-page>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      clients: [
+        {
+          name: "ASDF QWER",
+          email: "asdf@gmail.com",
+          phone: "6565-6565",
+        },
+        {
+          name: "ASDF QWER",
+          email: "asdf@gmail.com",
+          phone: "6565-6565",
+        },
+        {
+          name: "ASDF QWER",
+          email: "asdf@gmail.com",
+          phone: "6565-6565",
+        },
+        {
+          name: "ASDF QWER",
+          email: "asdf@gmail.com",
+          phone: "6565-6565",
+        },
+      ],
+      columns: [
+        {
+          name: "name",
+          label: "Name",
+          align: "left",
+          field: "name",
+          sortable: true,
+        },
+        {
+          name: "email",
+          label: "Email",
+          field: "email",
+          sortable: true,
+          align: "left",
+        },
+        {
+          name: "phone",
+          label: "Phone",
+          field: "phone",
+          sortable: true,
+          align: "left",
+        },
+        { name: "actions", label: "Actions", align: "left" },
+      ],
+    };
+  },
+};
+</script>
