@@ -21,7 +21,7 @@
             >
               <span v-if="data.type == 'invoice'">Factura</span>
               <span v-if="data.type == 'quote'">Cotizacion</span>
-              No. {{ data.number }}
+              No. 123
             </span>
           </div>
         </div>
@@ -41,14 +41,20 @@
       <div class="row">
         <div class="col-lg-8">
           <div class="text-subtitle2 w700 text-secondary">CLIENTE</div>
-          <div class="text-h6 w700 text-dark">{{ data.clientName }}</div>
-          <div class="text-body w600">Tel. {{ data.clientPhone }}</div>
-          <div class="text-body w600">Email. {{ data.clientEmail }}</div>
+          <div class="text-h6 w700 text-dark">
+            {{ data.clientData ? data.clientData.name : "" }}
+          </div>
+          <div class="text-body w600">
+            Tel. {{ data.clientData ? data.clientData.phone : "" }}
+          </div>
+          <div class="text-body w600">
+            Email. {{ data.clientData ? data.clientData.email : "" }}
+          </div>
         </div>
         <div class="col-lg-4 text-right">
           <q-separator />
           <div class="text-subitle2 w700 q-mt-sm text-secondary">Balance</div>
-          <div class="text-h6 w700 text-dark">$ {{ calculateTotal() }}</div>
+          <div class="text-h6 w700 text-dark">$ {{ calculateTotal }}</div>
           <div class="text-subtitle2 w700">MARTES</div>
           <div class="text-subtitle2 w600 q-mb-sm">7 de mayo, 2020</div>
           <q-separator />
@@ -94,14 +100,23 @@
         </div>
         <q-space />
         <div class="col-lg-2 text-center">
-          <div class="text-subtitle2">$ {{ item.price.toFixed(2) }}</div>
+          <div class="text-subtitle2">
+            $ {{ item.price == "" ? "" : parseFloat(item.price).toFixed(2) }}
+          </div>
         </div>
         <div class="col-lg-3 text-center">
-          <div class="text-subtitle2">{{ item.amount }}</div>
+          <div class="text-subtitle2">
+            {{ item.price == "" ? "" : item.amount }}
+          </div>
         </div>
         <div class="col-lg-2 text-center">
           <div class="text-subtitle2">
-            $ {{ (item.price * item.amount).toFixed(2) }}
+            $
+            {{
+              item.price == ""
+                ? ""
+                : (parseFloat(item.price) * parseFloat(item.amount)).toFixed(2)
+            }}
           </div>
         </div>
       </div>
@@ -112,7 +127,7 @@
         <div class="text-h6 w700">Total:</div>
       </div>
       <div class="col-lg-6">
-        <div class="text-h6 w700 text-right">$ {{ calculateTotal() }}</div>
+        <div class="text-h6 w700 text-right">$ {{ calculateTotal }}</div>
       </div>
     </div>
     <div class="bg-grey-3 q-pb-lg">
@@ -134,8 +149,7 @@
           <div class="col-lg-6">
             <div class="text-subtitle2 w700 q-mb-sm">NOTAS:</div>
             <div class="text-body">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-              sed consectetur elit, vel cursus nunc.
+              {{ data.notes }}
             </div>
           </div>
         </div>
@@ -165,13 +179,42 @@
 
 <script>
 export default {
-  props: ["data"],
-  methods: {
+  props: {
+    data: {
+      type: Object,
+      default: () => {
+        return {
+          type: this.$route.params.documentType,
+          number: "",
+          clientData: {
+            name: "",
+            phone: "",
+            email: "",
+          },
+          date: "",
+          items: [
+            {
+              name: "",
+              description: "",
+              price: "",
+              amount: "",
+            },
+          ],
+        };
+      },
+    },
+  },
+  methods: {},
+  computed: {
     calculateTotal() {
       let total = 0;
-      this.data.items.forEach((item) => {
-        total += item.price * item.amount;
-      });
+      if (this.data.items) {
+        this.data.items.forEach((item) => {
+          if (item.price != "" && item.amount != "") {
+            total += parseFloat(item.price) * parseInt(item.amount);
+          }
+        });
+      }
       return total.toFixed(2);
     },
   },

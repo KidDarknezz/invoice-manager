@@ -15,7 +15,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/document',
+    path: '/document/:documentId/:documentType',
     name: 'DocumentView',
     component: DocumentView
   },

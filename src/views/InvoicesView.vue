@@ -25,7 +25,7 @@
             icon-right="far fa-file"
             rounded
             size="sm"
-            to="/document"
+            to="/document/new/invoice"
             color="primary"
           />
         </div>
@@ -34,7 +34,7 @@
             <div class="row">
               <q-table
                 class="full-width"
-                :data="invoices"
+                :data="allInvoices"
                 :columns="columns"
                 row-key="name"
                 binary-state-sort
@@ -43,17 +43,23 @@
                 <template v-slot:body="props">
                   <q-tr :props="props">
                     <q-td key="number" :props="props">{{
-                      props.row.number
+                      props.row.invoiceNo
                     }}</q-td>
                     <q-td key="client" :props="props">{{
-                      props.row.client
+                      props.row.client.name
                     }}</q-td>
-                    <q-td key="total">$ 20.50</q-td>
+                    <q-td key="total"
+                      >$ {{ calculateInvoiceTotal(props.row.items) }}</q-td
+                    >
                     <q-td>
                       <q-btn-group rounded flat>
-                        <q-btn icon="edit" size="sm" flat />
-                        <q-btn icon="fas fa-arrow-right" size="sm" flat />
                         <q-btn icon="delete" size="sm" flat />
+                        <q-btn
+                          icon="fas fa-arrow-right"
+                          size="sm"
+                          flat
+                          :to="`/document/${props.row.id}/invoice`"
+                        />
                       </q-btn-group>
                     </q-td>
                   </q-tr>
@@ -61,39 +67,6 @@
               </q-table>
             </div>
           </div>
-          <!-- <div class="col-lg-4 q-px-md">
-            <q-card>
-              <q-card-section>
-                <div class="text-h6 w700 text-dark">
-                  New invoice
-                </div>
-              </q-card-section>
-              <q-card-section>
-                <q-select
-                  label="Client"
-                  filled
-                  class="q-mb-md"
-                  :options="['a', 'b']"
-                />
-                <q-input
-                  label="Email"
-                  filled
-                  color="secondary"
-                  class="q-mb-md"
-                />
-                <q-input
-                  label="Phone"
-                  filled
-                  color="secondary"
-                  class="q-mb-md"
-                />
-              </q-card-section>
-              <q-card-actions>
-                <q-space />
-                <q-btn label="Save" flat color="dark" class="w700" rounded />
-              </q-card-actions>
-            </q-card>
-          </div> -->
         </div>
       </div>
       <q-space />
@@ -102,16 +75,11 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
   data() {
     return {
-      invoices: [
-        {
-          number: "002-2021",
-          client: "ASDF QWER",
-          date: "20-12-20",
-        },
-      ],
       columns: [
         {
           name: "number",
@@ -132,6 +100,23 @@ export default {
         { name: "actions", label: "Actions", align: "left" },
       ],
     };
+  },
+  methods: {
+    ...mapActions("invoicesStore", ["getAllInvoices"]),
+
+    calculateInvoiceTotal(items) {
+      let total = 0;
+      items.forEach((item) => {
+        total += item.amount * item.price;
+      });
+      return total.toFixed(2);
+    },
+  },
+  computed: {
+    ...mapState("invoicesStore", ["allInvoices"]),
+  },
+  mounted() {
+    this.getAllInvoices();
   },
 };
 </script>

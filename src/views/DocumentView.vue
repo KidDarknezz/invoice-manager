@@ -33,7 +33,7 @@
           :float-layout="true"
           :enable-download="true"
           :preview-modal="true"
-          :paginate-elements-by-height="1400"
+          :paginate-elements-by-height="2000"
           filename="hee hee"
           :pdf-quality="2"
           :manual-pagination="false"
@@ -58,6 +58,7 @@
             icon-right="far fa-save"
             rounded
             color="dark"
+            @click="printDocData()"
           />
         </div>
         <q-card>
@@ -68,31 +69,86 @@
             <q-select
               label="Client"
               color="primary"
-              :options="['a', 'b']"
+              :options="mapClients"
               filled
               class="q-mb-md"
+              v-model="documentData.clientData"
+              map-options
+              emit-value
             />
             <q-separator class="q-my-md" />
-            <div class="text-caption w700 q-mb-sm">Item 1</div>
-            <q-input label="Item name" filled color="primary" class="q-mb-md">
-              <template v-slot:after>
-                <q-btn round dense flat icon="add" />
-              </template>
-            </q-input>
-            <q-input
-              label="Item description (optional)"
-              filled
-              color="primary"
+            <div
               class="q-mb-md"
-            />
-            <div class="row">
-              <div class="col on-left">
-                <q-input label="Price" filled color="primary" />
-              </div>
-              <div class="col on-right">
-                <q-input label="Amount" filled color="primary" />
+              v-for="(item, i) in documentData.items"
+              :key="i"
+            >
+              <div class="text-caption w700 q-mb-sm">Item {{ i + 1 }}</div>
+              <q-input
+                label="Item name"
+                filled
+                color="primary"
+                class="q-mb-md"
+                v-model="documentData.items[i].name"
+              >
+                <template v-slot:after>
+                  <q-btn
+                    round
+                    dense
+                    flat
+                    icon="delete"
+                    @click="removeItem(i)"
+                    :disable="documentData.items.length > 1 ? false : true"
+                  />
+                </template>
+              </q-input>
+              <q-input
+                label="Item description (optional)"
+                filled
+                color="primary"
+                class="q-mb-md"
+                v-model="documentData.items[i].description"
+              />
+              <div class="row">
+                <div class="col on-left">
+                  <q-input
+                    label="Price"
+                    filled
+                    color="primary"
+                    v-model="documentData.items[i].price"
+                  />
+                </div>
+                <div class="col on-right">
+                  <q-input
+                    label="Amount"
+                    filled
+                    color="primary"
+                    v-model="documentData.items[i].amount"
+                  />
+                </div>
               </div>
             </div>
+            <div class="row">
+              <q-space />
+              <q-btn
+                flat
+                label="Add item"
+                icon="add"
+                no-caps
+                rounded
+                color="primary"
+                @click="addNewItem()"
+              />
+            </div>
+
+            <q-separator class="q-my-md" />
+            <q-input
+              type="textarea"
+              rows="4"
+              label="Notes"
+              filled
+              color="primary"
+              v-model="documentData.notes"
+            />
           </q-card-section>
         </q-card>
       </div>
@@ -104,48 +160,78 @@
 <script>
 import VueHtml2pdf from "vue-html2pdf";
 import DocumentComponent from "@/components/DocumentComponent";
+import { mapState, mapActions } from "vuex";
 
 export default {
   data() {
     return {
-      documentData: {
-        type: "quote",
-        number: "002-2021",
-        clientName: "Pedro Picapiedra",
-        clientPhone: "6565-6565",
-        clientEmail: "pedropicapiedra@gmail.com",
-        date: "23-5-2020",
-        items: [
-          {
-            name: "Item name 1",
-            description: "Lorem ipsum dolor sit amet.",
-            price: 10.25,
-            amount: 2,
-          },
-          {
-            name: "Item name 2",
-            description: "Lorem ipsum dolor sit amet.",
-            price: 10.25,
-            amount: 1,
-          },
-          {
-            name: "Item name 3",
-            description: "Lorem ipsum dolor sit amet.",
-            price: 10.25,
-            amount: 4,
-          },
-        ],
-      },
+      documentData: {},
     };
   },
   methods: {
+    ...mapActions("invoicesStore", ["getInvoice"]),
+
     generateReport() {
       this.$refs.html2Pdf.generatePdf();
     },
     returnPaperSize() {
-      if (this.documentData.items.length <= 5) return "letter";
-      if (this.documentData.items.length > 5) return "a4";
+      try {
+        if (this.documentData.items.length <= 5) return "letter";
+        if (this.documentData.items.length > 5) return "a4";
+      } catch (e) {}
     },
+    addNewItem() {
+      this.documentData.items.push({
+        name: "",
+        description: "",
+        price: "",
+        amount: "",
+      });
+    },
+    removeItem(index) {
+      this.documentData.items.splice(index, 1);
+    },
+    getExistingInvoice() {
+      console.log("getting existing invoice");
+    },
+  },
+  computed: {
+    ...mapState("clientsStore", ["allClients"]),
+
+    mapClients() {
+      let clients = [];
+      this.allClients.forEach((client) => {
+        let c = {};
+        c.label = client.name;
+        c.value = client;
+        clients.push(c);
+      });
+      return clients;
+    },
+  },
+
+  mounted() {
+    // console.log(this.$route.params.documentId);
+    // console.log(this.$route.params.documentType);
+    if (this.$route.params.documentId == "new") {
+      this.documentData = {
+        type: this.$route.params.documentType,
+        number: "",
+        clientData: "",
+        date: "",
+        items: [
+          {
+            name: "",
+            description: "",
+            price: "",
+            amount: "",
+          },
+        ],
+        notes: "",
+      };
+    } else {
+      this.getExistingInvoice();
+    }
   },
   components: {
     VueHtml2pdf,

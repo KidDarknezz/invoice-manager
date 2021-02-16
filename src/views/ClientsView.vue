@@ -23,7 +23,7 @@
             <div class="row">
               <q-table
                 class="full-width"
-                :data="clients"
+                :data="allClients"
                 :columns="columns"
                 row-key="name"
                 binary-state-sort
@@ -40,8 +40,13 @@
                     }}</q-td>
                     <q-td>
                       <q-btn-group rounded flat>
-                        <q-btn icon="edit" size="sm" color="secondary" flat />
-                        <q-btn icon="delete" size="sm" flat color="dark" />
+                        <q-btn icon="edit" size="sm" flat />
+                        <q-btn
+                          icon="delete"
+                          size="sm"
+                          flat
+                          @click="deleteClient(props.row.id)"
+                        />
                       </q-btn-group>
                     </q-td>
                   </q-tr>
@@ -62,23 +67,33 @@
                   filled
                   color="secondary"
                   class="q-mb-md"
+                  v-model="newClient.name"
                 />
                 <q-input
                   label="Email"
                   filled
                   color="secondary"
                   class="q-mb-md"
+                  v-model="newClient.email"
                 />
                 <q-input
                   label="Phone"
                   filled
                   color="secondary"
                   class="q-mb-md"
+                  v-model="newClient.phone"
                 />
               </q-card-section>
               <q-card-actions>
                 <q-space />
-                <q-btn label="Save" flat color="dark" class="w700" rounded />
+                <q-btn
+                  label="Save"
+                  flat
+                  color="dark"
+                  class="w700"
+                  rounded
+                  @click="submitNewClient()"
+                />
               </q-card-actions>
             </q-card>
           </div>
@@ -90,31 +105,16 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
   data() {
     return {
-      clients: [
-        {
-          name: "ASDF QWER",
-          email: "asdf@gmail.com",
-          phone: "6565-6565",
-        },
-        {
-          name: "ASDF QWER",
-          email: "asdf@gmail.com",
-          phone: "6565-6565",
-        },
-        {
-          name: "ASDF QWER",
-          email: "asdf@gmail.com",
-          phone: "6565-6565",
-        },
-        {
-          name: "ASDF QWER",
-          email: "asdf@gmail.com",
-          phone: "6565-6565",
-        },
-      ],
+      newClient: {
+        name: "",
+        email: "",
+        phone: "",
+      },
       columns: [
         {
           name: "name",
@@ -140,6 +140,22 @@ export default {
         { name: "actions", label: "Actions", align: "left" },
       ],
     };
+  },
+  methods: {
+    ...mapActions("clientsStore", ["createClient", "deleteClient"]),
+
+    submitNewClient() {
+      this.createClient(this.newClient);
+      this.clearForm();
+    },
+    clearForm() {
+      this.newClient.name = "";
+      this.newClient.email = "";
+      this.newClient.phone = "";
+    },
+  },
+  computed: {
+    ...mapState("clientsStore", ["allClients"]),
   },
 };
 </script>
