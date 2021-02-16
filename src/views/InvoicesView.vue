@@ -46,7 +46,7 @@
                       props.row.invoiceNo
                     }}</q-td>
                     <q-td key="client" :props="props">{{
-                      props.row.client.name
+                      props.row.clientData.name
                     }}</q-td>
                     <q-td key="total"
                       >$ {{ calculateInvoiceTotal(props.row.items) }}</q-td

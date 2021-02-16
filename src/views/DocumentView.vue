@@ -47,7 +47,7 @@
           </section>
         </vue-html2pdf>
       </div>
-      <div class="col-lg-4 q-ma-xl">
+      <div class="col-lg-4 q-ma-xl" v-if="$route.params.documentId == 'new'">
         <div class="row q-mb-md">
           <q-space />
           <q-btn
@@ -191,12 +191,10 @@ export default {
     removeItem(index) {
       this.documentData.items.splice(index, 1);
     },
-    getExistingInvoice() {
-      console.log("getting existing invoice");
-    },
   },
   computed: {
     ...mapState("clientsStore", ["allClients"]),
+    ...mapState("invoicesStore", ["existingInvoice"]),
 
     mapClients() {
       let clients = [];
@@ -230,7 +228,10 @@ export default {
         notes: "",
       };
     } else {
-      this.getExistingInvoice();
+      this.getInvoice(this.$route.params.documentId);
+      setTimeout(() => {
+        this.documentData = this.existingInvoice;
+      }, 500);
     }
   },
   components: {

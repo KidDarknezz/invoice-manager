@@ -2,11 +2,15 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 const state = {
-  allInvoices: []
+  allInvoices: [],
+  existingInvoice: {}
 }
 const mutations = {
   setAllInvoices(state, payload) {
     state.allInvoices = payload
+  },
+  setExistingInvoice(state, payload) {
+    state.existingInvoice = payload
   }
 }
 const actions = {
@@ -22,7 +26,9 @@ const actions = {
     })
   },
   getInvoice({commit}, payload) {
-    console.log('getting invoice from store')
+    firebase.firestore().collection('invoices').doc(payload).get().then(snapshot => {
+      commit("setExistingInvoice", snapshot.data())
+    })
   }
 }
 const getters = {}

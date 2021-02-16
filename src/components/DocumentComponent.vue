@@ -5,13 +5,13 @@
         <div class="col-lg-6">
           <div
             class="text-h4 w700 text-dark q-mb-sm"
-            v-if="data.type == 'invoice'"
+            v-if="this.$route.params.documentType == 'invoice'"
           >
             FACTURA
           </div>
           <div
             class="text-h4 w700 text-dark q-mb-xs"
-            v-if="data.type == 'quote'"
+            v-if="this.$route.params.documentType == 'quote'"
           >
             COTIZACION
           </div>
