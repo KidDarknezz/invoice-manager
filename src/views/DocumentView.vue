@@ -232,7 +232,7 @@ export default {
           type: this.$route.params.documentType,
           number: this.returnDocumentNumber,
           clientData: "",
-          date: "",
+          date: Date.now(),
           items: [
             {
               name: "",

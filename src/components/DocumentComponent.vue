@@ -55,8 +55,12 @@
           <q-separator />
           <div class="text-subitle2 w700 q-mt-sm text-secondary">Balance</div>
           <div class="text-h6 w700 text-dark">$ {{ calculateTotal }}</div>
-          <div class="text-subtitle2 w700">MARTES</div>
-          <div class="text-subtitle2 w600 q-mb-sm">7 de mayo, 2020</div>
+          <div class="text-subtitle2 w700">
+            {{ formatDate("dddd").toUpperCase() }}
+          </div>
+          <div class="text-subtitle2 w600 q-mb-sm">
+            {{ formatDate("DD [de]  MMMM[,] YYYY") }}
+          </div>
           <q-separator />
         </div>
       </div>
@@ -178,6 +182,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   props: {
     data: {
@@ -204,7 +210,11 @@ export default {
       },
     },
   },
-  methods: {},
+  methods: {
+    formatDate(format) {
+      return moment(this.data.date).locale("es").format(format);
+    },
+  },
   computed: {
     calculateTotal() {
       let total = 0;
