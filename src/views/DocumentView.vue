@@ -35,7 +35,7 @@
           :enable-download="true"
           :preview-modal="true"
           :paginate-elements-by-height="2000"
-          :filename="documentData ? 'a' : 'b'"
+          :filename="`${$route.params.documentType}-${documentData.number}`"
           :pdf-quality="2"
           :manual-pagination="false"
           :pdf-format="returnPaperSize()"

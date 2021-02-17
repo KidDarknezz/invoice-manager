@@ -20,7 +20,6 @@ const mutations = {
 }
 const actions = {
   getDocument({ commit }, payload) {
-    console.log(payload)
     firebase.firestore().collection(`${payload.type}s`).doc(payload.id).get().then(snapshot => {
       commit("setExistingDocument", snapshot.data())
     })
