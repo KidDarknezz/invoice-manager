@@ -11,19 +11,20 @@
             icon="fas fa-long-arrow-alt-left"
             rounded
             size="sm"
-            @click="$router.go(-1)"
+            to="/invoices"
             color="dark"
           />
           <q-space />
           <q-btn
             no-caps
-            label="Exportar a PDF"
+            label="Export to PDF"
             icon="far fa-file-pdf"
             class="w700"
             push
             rounded
             color="primary"
             @click="generateReport()"
+            v-if="$route.params.documentId != 'new'"
           />
         </div>
 
@@ -34,7 +35,9 @@
           :enable-download="true"
           :preview-modal="true"
           :paginate-elements-by-height="2000"
-          filename="hee hee"
+          :filename="`${documentData.type.toUpperCase()}-${
+            documentData.number
+          }`"
           :pdf-quality="2"
           :manual-pagination="false"
           :pdf-format="returnPaperSize()"
@@ -56,9 +59,10 @@
             label="Save"
             class="w700"
             icon-right="far fa-save"
+            size="sm"
             rounded
             color="dark"
-            @click="printDocData()"
+            @click="saveDocument(documentData)"
           />
         </div>
         <q-card>
@@ -170,6 +174,7 @@ export default {
   },
   methods: {
     ...mapActions("invoicesStore", ["getInvoice"]),
+    ...mapActions("documentsStore", ["saveDocument", "getGeneralInfo"]),
 
     generateReport() {
       this.$refs.html2Pdf.generatePdf();
@@ -195,6 +200,7 @@ export default {
   computed: {
     ...mapState("clientsStore", ["allClients"]),
     ...mapState("invoicesStore", ["existingInvoice"]),
+    ...mapState("documentsStore", ["newInvoice", "newQuote"]),
 
     mapClients() {
       let clients = [];
@@ -208,25 +214,26 @@ export default {
     },
   },
 
-  mounted() {
-    // console.log(this.$route.params.documentId);
-    // console.log(this.$route.params.documentType);
+  async mounted() {
+    await this.getGeneralInfo();
     if (this.$route.params.documentId == "new") {
-      this.documentData = {
-        type: this.$route.params.documentType,
-        number: "",
-        clientData: "",
-        date: "",
-        items: [
-          {
-            name: "",
-            description: "",
-            price: "",
-            amount: "",
-          },
-        ],
-        notes: "",
-      };
+      setTimeout(() => {
+        this.documentData = {
+          type: this.$route.params.documentType,
+          number: this.newInvoice,
+          clientData: "",
+          date: "",
+          items: [
+            {
+              name: "",
+              description: "",
+              price: "",
+              amount: "",
+            },
+          ],
+          notes: "",
+        };
+      }, 500);
     } else {
       this.getInvoice(this.$route.params.documentId);
       setTimeout(() => {

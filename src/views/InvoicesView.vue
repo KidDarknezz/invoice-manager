@@ -43,7 +43,7 @@
                 <template v-slot:body="props">
                   <q-tr :props="props">
                     <q-td key="number" :props="props">{{
-                      props.row.invoiceNo
+                      props.row.number
                     }}</q-td>
                     <q-td key="client" :props="props">{{
                       props.row.clientData.name

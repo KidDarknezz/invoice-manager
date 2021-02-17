@@ -21,7 +21,7 @@
             >
               <span v-if="data.type == 'invoice'">Factura</span>
               <span v-if="data.type == 'quote'">Cotizacion</span>
-              No. 123
+              No. {{ data.number }}
             </span>
           </div>
         </div>
@@ -121,7 +121,7 @@
         </div>
       </div>
     </div>
-    <q-separator class="q-my-lg bg-dark" style="height: 3px;" />
+    <q-separator class="q-my-lg bg-dark" style="height: 3px" />
     <div class="row middle-document q-mx-lg q-px-xl q-py-lg">
       <div class="col-lg-6">
         <div class="text-h6 w700">Total:</div>
@@ -163,7 +163,7 @@
           </div>
           <div class="col-lg-4">
             <div class="text-caption w600">
-              <q-icon name="r_language" /> www.blueblalloon.io
+              <q-icon name="r_language" /> www.blueballoon.io
             </div>
           </div>
           <div class="col-lg-4">
