@@ -34,7 +34,7 @@
             <div class="row">
               <q-table
                 class="full-width"
-                :data="allInvoices"
+                :data="allQuotes"
                 :columns="columns"
                 row-key="name"
                 binary-state-sort
@@ -58,7 +58,7 @@
                           icon="fas fa-arrow-right"
                           size="sm"
                           flat
-                          :to="`/document/${props.row.id}/invoice`"
+                          :to="`/document/${props.row.id}/quote`"
                         />
                       </q-btn-group>
                     </q-td>
@@ -102,7 +102,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("invoicesStore", ["getAllInvoices"]),
+    ...mapActions("quotesStore", ["getAllQuotes"]),
 
     calculateInvoiceTotal(items) {
       let total = 0;
@@ -113,10 +113,10 @@ export default {
     },
   },
   computed: {
-    ...mapState("invoicesStore", ["allInvoices"]),
+    ...mapState("quotesStore", ["allQuotes"]),
   },
   mounted() {
-    this.getAllInvoices();
+    this.getAllQuotes();
   },
 };
 </script>

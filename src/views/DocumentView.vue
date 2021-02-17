@@ -173,8 +173,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions("invoicesStore", ["getInvoice"]),
-    ...mapActions("documentsStore", ["saveDocument", "getGeneralInfo"]),
+    ...mapActions("documentsStore", [
+      "getDocument",
+      "saveDocument",
+      "getGeneralInfo",
+    ]),
 
     generateReport() {
       this.$refs.html2Pdf.generatePdf();
@@ -199,8 +202,11 @@ export default {
   },
   computed: {
     ...mapState("clientsStore", ["allClients"]),
-    ...mapState("invoicesStore", ["existingInvoice"]),
-    ...mapState("documentsStore", ["newInvoice", "newQuote"]),
+    ...mapState("documentsStore", [
+      "existingDocument",
+      "newInvoice",
+      "newQuote",
+    ]),
 
     mapClients() {
       let clients = [];
@@ -213,7 +219,6 @@ export default {
       return clients;
     },
     returnDocumentNumber() {
-      console.log(this.$route.params.documentType);
       if (this.$route.params.documentType == "invoice") return this.newInvoice;
       if (this.$route.params.documentType == "quote") return this.newQuote;
     },
@@ -240,9 +245,12 @@ export default {
         };
       }, 500);
     } else {
-      this.getInvoice(this.$route.params.documentId);
+      this.getDocument({
+        id: this.$route.params.documentId,
+        type: this.$route.params.documentType,
+      });
       setTimeout(() => {
-        this.documentData = this.existingInvoice;
+        this.documentData = this.existingDocument;
       }, 500);
     }
   },

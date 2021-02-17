@@ -3,10 +3,14 @@ import 'firebase/firestore'
 import router from "../router";
 
 const state = {
+  existingDocument: {},
   newInvoice: '',
   newOuote: ''
 }
 const mutations = {
+  setExistingDocument(state, payload) {
+    state.existingDocument = payload
+  },
   setNewInvoiceNo(state, payload) {
     state.newInvoice = payload
   },
@@ -15,6 +19,12 @@ const mutations = {
   }
 }
 const actions = {
+  getDocument({ commit }, payload) {
+    console.log(payload)
+    firebase.firestore().collection(`${payload.type}s`).doc(payload.id).get().then(snapshot => {
+      commit("setExistingDocument", snapshot.data())
+    })
+  },
   saveDocument({ }, payload) {
     if (confirm('Save document?')) {
       let collection = `${payload.type}s`
