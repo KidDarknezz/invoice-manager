@@ -11,7 +11,7 @@ const mutations = {
     state.newInvoice = payload
   },
   setNewQuoteNo(state, payload) {
-    state.newOuote = payload
+    state.newQuote = payload
   }
 }
 const actions = {

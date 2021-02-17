@@ -11,7 +11,7 @@
             icon="fas fa-long-arrow-alt-left"
             rounded
             size="sm"
-            to="/invoices"
+            to="/"
             color="dark"
           />
           <q-space />
@@ -35,9 +35,7 @@
           :enable-download="true"
           :preview-modal="true"
           :paginate-elements-by-height="2000"
-          :filename="`${documentData.type.toUpperCase()}-${
-            documentData.number
-          }`"
+          :filename="documentData ? 'a' : 'b'"
           :pdf-quality="2"
           :manual-pagination="false"
           :pdf-format="returnPaperSize()"
@@ -67,7 +65,9 @@
         </div>
         <q-card>
           <q-card-section>
-            <div class="text-h6 w700 text-dark">New invoice</div>
+            <div class="text-h6 w700 text-dark">
+              New {{ $route.params.documentType }}
+            </div>
           </q-card-section>
           <q-card-section>
             <q-select
@@ -212,6 +212,11 @@ export default {
       });
       return clients;
     },
+    returnDocumentNumber() {
+      console.log(this.$route.params.documentType);
+      if (this.$route.params.documentType == "invoice") return this.newInvoice;
+      if (this.$route.params.documentType == "quote") return this.newQuote;
+    },
   },
 
   async mounted() {
@@ -220,7 +225,7 @@ export default {
       setTimeout(() => {
         this.documentData = {
           type: this.$route.params.documentType,
-          number: this.newInvoice,
+          number: this.returnDocumentNumber,
           clientData: "",
           date: "",
           items: [
