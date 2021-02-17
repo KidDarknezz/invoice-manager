@@ -14,7 +14,7 @@ const mutations = {
 }
 const actions = {
   getAllInvoices({ commit }, payload) {
-    firebase.firestore().collection('invoices').get().then(snapshot => {
+    firebase.firestore().collection('invoices').orderBy("number", "desc").get().then(snapshot => {
       let invoices = []
       snapshot.forEach(invoice => {
         let inv = invoice.data()

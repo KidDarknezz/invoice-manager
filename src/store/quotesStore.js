@@ -15,7 +15,7 @@ const mutations = {
 }
 const actions = {
   getAllQuotes({ commit }, payload) {
-    firebase.firestore().collection('quotes').get().then(snapshot => {
+    firebase.firestore().collection('quotes').orderBy("number", "desc").get().then(snapshot => {
       let quotes = []
       snapshot.forEach(quote => {
         let quo = quote.data()
