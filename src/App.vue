@@ -10,6 +10,9 @@
 #app {
   font-family: "Nunito", sans-serif;
 }
+.bb-font {
+  font-family: "Nunito", sans-serif !important;
+}
 .w300 {
   font-weight: 300 !important;
 }

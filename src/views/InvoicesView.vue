@@ -26,7 +26,17 @@
             rounded
             size="sm"
             to="/document/new/invoice"
+            color="secondary"
+          />
+          <q-btn
+            flat
+            label="From quote"
+            class="w700"
+            icon-right="far fa-file"
+            rounded
+            size="sm"
             color="primary"
+            @click="createInvoiceFromQuote()"
           />
         </div>
         <div class="row">
@@ -71,15 +81,29 @@
       </div>
       <q-space />
     </div>
+
+    <q-dialog v-model="fromQuoteDialog">
+      <q-card>
+        <q-card-section>
+          <div class="text-h5 text-dark w700 bb-font">
+            Create invoice from quote
+          </div>
+        </q-card-section>
+        <q-card-section> asdf </q-card-section>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
 
+const stringOptions = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
+
 export default {
   data() {
     return {
+      fromQuoteDialog: false,
       columns: [
         {
           name: "number",
@@ -103,6 +127,7 @@ export default {
   },
   methods: {
     ...mapActions("invoicesStore", ["getAllInvoices"]),
+    ...mapActions("quotesStore", ["getAllQuotes"]),
 
     calculateInvoiceTotal(items) {
       let total = 0;
@@ -111,9 +136,14 @@ export default {
       });
       return total.toFixed(2);
     },
+    createInvoiceFromQuote() {
+      this.fromQuoteDialog = true;
+      if (this.allQuotes.length == 0) this.getAllQuotes();
+    },
   },
   computed: {
     ...mapState("invoicesStore", ["allInvoices"]),
+    ...mapState("quotesStore", ["allQuotes"]),
   },
   mounted() {
     this.getAllInvoices();
