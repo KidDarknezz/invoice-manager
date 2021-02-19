@@ -18,7 +18,7 @@ const mutations = {
   }
 }
 const actions = {
-  getClients({ commit }, payload) { 
+  getClients({ commit }, payload) {
     firebase.firestore().collection('clients').onSnapshot(snapshot => {
       let changes = snapshot.docChanges()
       let client
@@ -30,25 +30,25 @@ const actions = {
         } else if (change.type == 'modified') {
           client = change.doc.data()
           client.id = change.doc.id
-          commit('setModifiedClient', {client: client, index: change.oldIndex})
+          commit('setModifiedClient', { client: client, index: change.oldIndex })
         } else if (change.type == "removed") {
           commit("setRemovedClient", change.oldIndex);
         }
       })
     })
   },
-  createClient({}, payload) {
+  createClient({ }, payload) {
     firebase
       .firestore()
       .collection("clients")
       .add(payload);
   },
-  deleteClient({}, payload) {
+  deleteClient({ }, payload) {
     if (confirm("Delete client")) {
       firebase.firestore().collection("clients").doc(payload).delete().then(() => {
         console.log("Document successfully deleted!");
       }).catch((error) => {
-          console.error("Error removing document: ", error);
+        console.error("Error removing document: ", error);
       });
     }
   },

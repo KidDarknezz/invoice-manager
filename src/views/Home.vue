@@ -27,8 +27,8 @@
         />
         <q-btn
           label="Clients"
-          push
           class="w700 q-py-md q-mx-md"
+          push
           color="secondary"
           icon="fas fa-user-tag"
           to="/clients"
@@ -59,6 +59,10 @@ import vuex, { mapActions } from "vuex";
 export default {
   methods: {
     ...mapActions("authStore", ["logoutUser"]),
+    ...mapActions("clientsStore", ["getClients"]),
+  },
+  mounted() {
+    this.getClients();
   },
 };
 </script>

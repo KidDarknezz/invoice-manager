@@ -3,16 +3,10 @@ import 'firebase/firebase-auth'
 
 import router from '@/router'
 
-const state = {
-  activeUser: ''
-}
-const mutations = {
-  setCurrentUserUid(state, payload) {
-    state.activeUser = payload
-  }
-}
+const state = {}
+const mutations = {}
 const actions = {
-  loginUser({ commit }, payload) {
+  loginUser({ }, payload) {
     firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
       .then(credentials => {
         console.log(credentials)
@@ -20,9 +14,10 @@ const actions = {
       })
       .catch(err => {
         console.log(err)
+        alert(err.message)
       })
   },
-  logoutUser({ }, payload) {
+  logoutUser() {
     firebase.auth().signOut()
       .then(() => {
         console.log('logout succesfull')
@@ -32,18 +27,6 @@ const actions = {
         console.log(err)
       })
   },
-  logCurrentUser({ }, payload) {
-    console.log(firebase.auth().currentUser.uid)
-  },
-  handleAuthStateChanged({ commit }) {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        commit("setCurrentUserUid", user.uid)
-      } else {
-        commit("setCurrentUserUid", {})
-      }
-    })
-  }
 }
 const getters = {}
 

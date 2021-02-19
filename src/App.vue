@@ -6,18 +6,6 @@
   </q-layout>
 </template>
 
-<script>
-import { mapState, mapActions } from "vuex";
-export default {
-  methods: {
-    ...mapActions("clientsStore", ["getClients"]),
-  },
-  mounted() {
-    this.getClients();
-  },
-};
-</script>
-
 <style>
 #app {
   font-family: "Nunito", sans-serif;
