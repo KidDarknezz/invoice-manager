@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LoginView from '@/views/LoginView'
-import Home from '../views/Home.vue'
+import Home from '@/views/Home.vue'
 import QuotesView from '@/views/QuotesView'
 import InvoicesView from '@/views/InvoicesView'
 import ClientsView from '@/views/ClientsView'
 import DocumentView from '@/views/DocumentView'
+
+import firebase from 'firebase/app'
+import 'firebase/firebase-auth'
 
 Vue.use(VueRouter)
 
@@ -18,27 +21,42 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/document/:documentId/:documentType',
     name: 'DocumentView',
-    component: DocumentView
+    component: DocumentView,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/quotes',
     name: 'QuotesView',
-    component: QuotesView
+    component: QuotesView,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/invoices',
     name: 'InvoicesView',
-    component: InvoicesView
+    component: InvoicesView,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/clients',
     name: 'ClientsView',
-    component: ClientsView
+    component: ClientsView,
+    meta: {
+      requiresAuth: true,
+    },
   },
 ]
 
@@ -46,6 +64,18 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  if (requiresAuth) {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) next()
+      else next('/login')
+    })
+  } else {
+    next()
+  }
 })
 
 export default router

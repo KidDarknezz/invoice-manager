@@ -11,12 +11,22 @@
         <div class="flex flex-center" style="height: 100%">
           <q-card style="width: 50%" class="login-card">
             <q-card-section class="q-pa-lg">
-              <div class="text-h5 w700 text-dark">Invoice manager</div>
+              <div class="text-h5 w700 text-dark">Invoice Manager.</div>
             </q-card-section>
             <q-separator />
             <q-card-section class="q-pa-lg">
-              <q-input label="Email" filled class="q-mb-md" />
-              <q-input label="Password" filled type="password" />
+              <q-input
+                label="Email"
+                filled
+                class="q-mb-md"
+                v-model="loginData.email"
+              />
+              <q-input
+                label="Password"
+                filled
+                type="password"
+                v-model="loginData.password"
+              />
             </q-card-section>
             <q-separator />
             <q-card-actions class="q-pa-lg">
@@ -29,6 +39,7 @@
                 class="w700 full-width"
                 color="primary"
                 icon-right="login"
+                @click="loginUser(loginData)"
               />
             </q-card-actions>
           </q-card>
@@ -37,6 +48,24 @@
     </div>
   </q-page>
 </template>
+
+<script>
+import vuex, { mapActions } from "vuex";
+
+export default {
+  data() {
+    return {
+      loginData: {
+        email: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    ...mapActions("authStore", ["loginUser"]),
+  },
+};
+</script>
 
 <style>
 .gradient-bg {

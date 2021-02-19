@@ -1,12 +1,12 @@
 <template>
   <q-page>
     <div class="absolute-center">
-      <div class="row q-mb-md">
+      <div class="row q-mb-lg">
         <q-space />
-        <q-img :src="require('@/assets/logo_2.webp')" style="width: 150px;" />
+        <q-img :src="require('@/assets/logo_2.webp')" style="width: 150px" />
         <q-space />
       </div>
-      <div class="row">
+      <div class="row q-mb-lg">
         <q-btn
           label="Quotes"
           push
@@ -35,9 +35,33 @@
           rounded
         />
       </div>
+      <div class="row">
+        <q-space />
+        <q-btn
+          label="Logout"
+          no-caps
+          flat
+          rounded
+          class="w700 text-dark"
+          icon="login"
+          @click="logoutUser()"
+        />
+
+        <q-space />
+      </div>
     </div>
   </q-page>
 </template>
+
+<script>
+import vuex, { mapActions } from "vuex";
+
+export default {
+  methods: {
+    ...mapActions("authStore", ["logoutUser"]),
+  },
+};
+</script>
 
 <style>
 .menu-tiles {

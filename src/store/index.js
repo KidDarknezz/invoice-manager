@@ -5,6 +5,7 @@ import clientsStore from './clientsStore'
 import quotesStore from './quotesStore'
 import invoicesStore from './invoicesStore'
 import documentsStore from './documentsStore'
+import authStore from './authStore'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ export default function () {
       clientsStore,
       invoicesStore,
       documentsStore,
-      quotesStore
+      quotesStore,
+      authStore
     },
     strict: process.env.DEV,
   });
