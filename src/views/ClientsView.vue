@@ -55,47 +55,52 @@
             </div>
           </div>
           <div class="col-lg-4 q-px-md">
-            <q-card>
-              <q-card-section>
-                <div class="text-h6 w700 text-dark">
-                  New client
-                </div>
-              </q-card-section>
-              <q-card-section>
-                <q-input
-                  label="Name"
-                  filled
-                  color="secondary"
-                  class="q-mb-md"
-                  v-model="newClient.name"
-                />
-                <q-input
-                  label="Email"
-                  filled
-                  color="secondary"
-                  class="q-mb-md"
-                  v-model="newClient.email"
-                />
-                <q-input
-                  label="Phone"
-                  filled
-                  color="secondary"
-                  class="q-mb-md"
-                  v-model="newClient.phone"
-                />
-              </q-card-section>
-              <q-card-actions>
-                <q-space />
-                <q-btn
-                  label="Save"
-                  flat
-                  color="dark"
-                  class="w700"
-                  rounded
-                  @click="submitNewClient()"
-                />
-              </q-card-actions>
-            </q-card>
+            <q-form @submit="submitNewClient()">
+              <q-card>
+                <q-card-section>
+                  <div class="text-h6 w700 text-dark">
+                    New client
+                  </div>
+                </q-card-section>
+                <q-card-section>
+                  <q-input
+                    label="Name"
+                    filled
+                    color="secondary"
+                    class="q-mb-md"
+                    v-model="newClient.name"
+                    :rules="[(val) => !!val || 'Field is required']"
+                  />
+                  <q-input
+                    label="Email"
+                    filled
+                    color="secondary"
+                    class="q-mb-md"
+                    v-model="newClient.email"
+                    :rules="[(val) => !!val || 'Field is required']"
+                  />
+                  <q-input
+                    label="Phone"
+                    :mask="newClient.phone[0] == 6 ? '####-####' : '###-####'"
+                    filled
+                    color="secondary"
+                    v-model="newClient.phone"
+                    :rules="[(val) => !!val || 'Field is required']"
+                  />
+                </q-card-section>
+                <q-card-actions>
+                  <q-space />
+                  <q-btn
+                    label="Save"
+                    flat
+                    color="dark"
+                    class="w700"
+                    rounded
+                    type="submit"
+                  />
+                </q-card-actions>
+              </q-card>
+            </q-form>
           </div>
         </div>
       </div>
@@ -142,7 +147,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions("clientsStore", ["createClient", "deleteClient"]),
+    ...mapActions("clientsStore", [
+      "getClients",
+      "createClient",
+      "deleteClient",
+    ]),
 
     submitNewClient() {
       this.createClient(this.newClient);
@@ -156,6 +165,9 @@ export default {
   },
   computed: {
     ...mapState("clientsStore", ["allClients"]),
+  },
+  mounted() {
+    if (this.allClients.length == 0) this.getClients();
   },
 };
 </script>

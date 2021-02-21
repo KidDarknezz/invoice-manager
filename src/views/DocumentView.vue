@@ -179,7 +179,7 @@ export default {
       "getGeneralInfo",
     ]),
     ...mapActions("invoicesStore", ["generateInvoiceFromQuote"]),
-
+    ...mapActions("clientsStore", ["getClients"]),
     generateReport() {
       this.$refs.html2Pdf.generatePdf();
     },
@@ -227,6 +227,7 @@ export default {
   },
 
   async mounted() {
+    if (this.allClients.length == 0) this.getClients();
     await this.getGeneralInfo();
     if (
       this.$route.params.documentId == "new" &&

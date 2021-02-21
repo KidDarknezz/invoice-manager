@@ -54,18 +54,11 @@
 </template>
 
 <script>
-import vuex, { mapActions, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   methods: {
     ...mapActions("authStore", ["logoutUser"]),
-    ...mapActions("clientsStore", ["getClients"]),
-  },
-  computed: {
-    ...mapState("clientsStore", ["allClients"]),
-  },
-  mounted() {
-    if (this.allClients.length == 0) this.getClients();
   },
 };
 </script>
