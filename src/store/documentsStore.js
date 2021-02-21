@@ -58,7 +58,7 @@ const actions = {
       commit("setNewQuoteNo", newQuoteString)
 
     })
-  }
+  },
 }
 const getters = {}
 

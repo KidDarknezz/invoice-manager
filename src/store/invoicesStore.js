@@ -3,6 +3,7 @@ import 'firebase/firestore'
 
 const state = {
   allInvoices: [],
+  selectedQuoteToInvoice: ''
 }
 const mutations = {
   setAllInvoices(state, payload) {
@@ -10,6 +11,9 @@ const mutations = {
   },
   setExistingInvoice(state, payload) {
     state.existingInvoice = payload
+  },
+  setSelectedQuoteToInvoice(state, payload) {
+    state.selectedQuoteToInvoice = payload
   }
 }
 const actions = {
@@ -24,6 +28,9 @@ const actions = {
       commit("setAllInvoices", invoices)
     })
   },
+  generateInvoiceFromQuote({commit}, payload) {
+    commit("setSelectedQuoteToInvoice", payload)
+  }
 }
 const getters = {}
 

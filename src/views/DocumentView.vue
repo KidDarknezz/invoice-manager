@@ -178,6 +178,7 @@ export default {
       "saveDocument",
       "getGeneralInfo",
     ]),
+    ...mapActions("invoicesStore", ["generateInvoiceFromQuote"]),
 
     generateReport() {
       this.$refs.html2Pdf.generatePdf();
@@ -207,6 +208,7 @@ export default {
       "newInvoice",
       "newQuote",
     ]),
+    ...mapState("invoicesStore", ["selectedQuoteToInvoice"]),
 
     mapClients() {
       let clients = [];
@@ -226,7 +228,10 @@ export default {
 
   async mounted() {
     await this.getGeneralInfo();
-    if (this.$route.params.documentId == "new") {
+    if (
+      this.$route.params.documentId == "new" &&
+      !this.selectedQuoteToInvoice
+    ) {
       setTimeout(() => {
         this.documentData = {
           type: this.$route.params.documentType,
@@ -244,6 +249,17 @@ export default {
           notes: "",
         };
       }, 500);
+    } else if (this.selectedQuoteToInvoice) {
+      this.getDocument({
+        id: this.selectedQuoteToInvoice,
+        type: "quote",
+      });
+      setTimeout(() => {
+        this.documentData = this.existingDocument;
+        this.documentData.number = this.returnDocumentNumber;
+        this.documentData.type = "invoice";
+        this.documentData.date = Date.now();
+      }, 500);
     } else {
       this.getDocument({
         id: this.$route.params.documentId,
@@ -253,6 +269,9 @@ export default {
         this.documentData = this.existingDocument;
       }, 500);
     }
+  },
+  beforeDestroy() {
+    this.generateInvoiceFromQuote("");
   },
   components: {
     VueHtml2pdf,

@@ -32,7 +32,7 @@
             flat
             label="From quote"
             class="w700"
-            icon-right="far fa-file"
+            icon-right="fas fa-file-invoice-dollar"
             rounded
             size="sm"
             color="primary"
@@ -83,13 +83,45 @@
     </div>
 
     <q-dialog v-model="fromQuoteDialog">
-      <q-card>
+      <q-card style="min-width: 500px;">
         <q-card-section>
           <div class="text-h5 text-dark w700 bb-font">
             Create invoice from quote
           </div>
         </q-card-section>
-        <q-card-section> asdf </q-card-section>
+        <q-card-section>
+          <q-input label="Search quote" filled v-model="searchQuote" />
+        </q-card-section>
+        <q-card-section>
+          <div class="row" v-for="quote in filterQuotes" :key="quote.id">
+            <div class="col">{{ quote.number }}</div>
+            <div class="col">{{ quote.clientData.name }}</div>
+            <div class="col">
+              <q-btn
+                icon="forward"
+                color="primary"
+                flat
+                round
+                size="sm"
+                @click="
+                  generateInvoiceFromQuote(quote.id);
+                  $router.push('/document/new/invoice');
+                "
+              />
+            </div>
+          </div>
+        </q-card-section>
+        <q-card-actions>
+          <q-space />
+          <q-btn
+            label="Cancel"
+            flat
+            rounded
+            color="dark"
+            class="w700 bb-font"
+            v-close-popup
+          />
+        </q-card-actions>
       </q-card>
     </q-dialog>
   </q-page>
@@ -98,12 +130,11 @@
 <script>
 import { mapState, mapActions } from "vuex";
 
-const stringOptions = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
-
 export default {
   data() {
     return {
       fromQuoteDialog: false,
+      searchQuote: "",
       columns: [
         {
           name: "number",
@@ -126,7 +157,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions("invoicesStore", ["getAllInvoices"]),
+    ...mapActions("invoicesStore", [
+      "getAllInvoices",
+      "generateInvoiceFromQuote",
+    ]),
     ...mapActions("quotesStore", ["getAllQuotes"]),
 
     calculateInvoiceTotal(items) {
@@ -138,12 +172,20 @@ export default {
     },
     createInvoiceFromQuote() {
       this.fromQuoteDialog = true;
-      if (this.allQuotes.length == 0) this.getAllQuotes();
+      this.getAllQuotes();
     },
   },
   computed: {
-    ...mapState("invoicesStore", ["allInvoices"]),
+    ...mapState("invoicesStore", ["allInvoices", "selectedQuoteToInvoice"]),
     ...mapState("quotesStore", ["allQuotes"]),
+
+    filterQuotes() {
+      let filteredQuotes = [];
+      this.allQuotes.forEach((quote) => {
+        if (quote.number.includes(this.searchQuote)) filteredQuotes.push(quote);
+      });
+      return filteredQuotes;
+    },
   },
   mounted() {
     this.getAllInvoices();
