@@ -83,20 +83,30 @@
     </div>
 
     <q-dialog v-model="fromQuoteDialog">
-      <q-card style="min-width: 500px;">
+      <q-card class="bb-font" style="min-width: 500px;">
         <q-card-section>
-          <div class="text-h5 text-dark w700 bb-font">
+          <div class="text-h5 text-dark w700">
             Create invoice from quote
           </div>
         </q-card-section>
         <q-card-section>
-          <q-input label="Search quote" filled v-model="searchQuote" />
+          <q-input
+            label="Search quote"
+            filled
+            v-model="searchQuote"
+            autofocus
+          />
         </q-card-section>
-        <q-card-section>
-          <div class="row" v-for="quote in filterQuotes" :key="quote.id">
-            <div class="col">{{ quote.number }}</div>
+        <q-card-section v-if="filterQuotes.length > 0 && searchQuote">
+          <div
+            class="row w700 q-pt-md"
+            v-for="quote in filterQuotes"
+            :key="quote.id"
+            style="border-bottom: solid 1px #e6e6e6"
+          >
+            <div class="col-lg-3">{{ quote.number }}</div>
             <div class="col">{{ quote.clientData.name }}</div>
-            <div class="col">
+            <div class="col-lg-1">
               <q-btn
                 icon="forward"
                 color="primary"
@@ -110,6 +120,9 @@
               />
             </div>
           </div>
+        </q-card-section>
+        <q-card-section v-if="filterQuotes.length == 0 && searchQuote">
+          <div class="text-h6 text-grey-4 w700">No results found.</div>
         </q-card-section>
         <q-card-actions>
           <q-space />
