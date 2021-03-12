@@ -140,7 +140,7 @@
           <div class="col-lg-6">
             <div class="text-subtitle2 w700 q-mb-sm">INFORMACION DE PAGO</div>
             <div class="text-body">
-              <span class="w700">No. Cuenta:</span> 40-456123-461-01
+              <span class="w700">No. Cuenta:</span> 04-72-98-558246-9
             </div>
             <div class="text-body">
               <span class="w700">Nombre:</span> Diego Rodriguez
@@ -162,7 +162,7 @@
         <div class="row text-center q-py-lg">
           <div class="col-lg-4">
             <div class="text-caption w600">
-              <q-icon name="r_phone" /> (507) 6480-6774
+              <q-icon name="r_phone" /> (507) 6480-6778
             </div>
           </div>
           <div class="col-lg-4">
@@ -172,7 +172,7 @@
           </div>
           <div class="col-lg-4">
             <div class="text-caption w600">
-              <q-icon name="r_email" /> contacto@blueballoon.io
+              <q-icon name="r_email" /> diego@blueballoon.io
             </div>
           </div>
         </div>
