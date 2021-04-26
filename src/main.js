@@ -4,24 +4,24 @@ import router from './router'
 import store from './store'
 import './quasar'
 
-import firebase from "firebase/app"
+import firebase from 'firebase/app'
 
 Vue.config.productionTip = false
 
 var firebaseConfig = {
-  apiKey: "AIzaSyBL69kWtvxSA6u-EKS8EV-_9TWtflwRya0",
-  authDomain: "bb-invoice-manager.firebaseapp.com",
-  projectId: "bb-invoice-manager",
-  storageBucket: "bb-invoice-manager.appspot.com",
-  messagingSenderId: "466565625015",
-  appId: "1:466565625015:web:6e2c95b48b194712750932",
-  measurementId: "G-L956LZFGBH"
-};
+    apiKey: 'AIzaSyCmhqOfz2yaOmz6lEbp0bE1cuyFu2xlgSo',
+    authDomain: 'invoice-manager-6e5f5.firebaseapp.com',
+    projectId: 'invoice-manager-6e5f5',
+    storageBucket: 'invoice-manager-6e5f5.appspot.com',
+    messagingSenderId: '1073198062429',
+    appId: '1:1073198062429:web:45c3cb7a5d89062b9226b4',
+    measurementId: 'G-3WGPTS0RDW',
+}
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig)
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App),
 }).$mount('#app')
