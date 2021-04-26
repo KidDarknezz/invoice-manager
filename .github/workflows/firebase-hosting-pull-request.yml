@@ -8,11 +8,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-            - run: npm ci && npm run build
+            - run: npm run build
             - uses: FirebaseExtended/action-hosting-deploy@v0
               with:
                   repoToken: '${{ secrets.GITHUB_TOKEN }}'
-                  firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BB_INVOICE_MANAGER }}'
+                  firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_INVOICE_MANAGER_6E5F5 }}'
                   projectId: invoice-manager-6e5f5
               env:
                   FIREBASE_CLI_PREVIEWS: hostingchannels
