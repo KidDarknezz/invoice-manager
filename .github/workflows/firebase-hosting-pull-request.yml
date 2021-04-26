@@ -9,7 +9,7 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - uses: actions/setup-node@master
-            with:
+              with:
                   node-version: '10.x'
             - run: npm install
             - run: npm run build
