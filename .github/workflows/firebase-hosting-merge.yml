@@ -21,6 +21,6 @@ jobs:
                   repoToken: '${{ secrets.GITHUB_TOKEN }}'
                   firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BB_INVOICE_MANAGER }}'
                   channelId: live
-                  projectId: bb-invoice-manager
+                  projectId: invoice-manager-6e5f5
               env:
                   FIREBASE_CLI_PREVIEWS: hostingchannels
