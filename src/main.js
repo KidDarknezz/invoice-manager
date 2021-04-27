@@ -23,9 +23,8 @@ firebase.initializeApp(firebaseConfig)
 
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
-        store.commit('SET_USER', user)
-        store.commit('SET_UID', user.uid)
-        store.dispatch('getEntities', user.uid)
+        store.dispatch('auth/setUser', user)
+        store.dispatch('entities/getEntities', user.uid)
     }
     new Vue({
         router,

@@ -44,7 +44,7 @@
                     rounded
                     class="w700 text-dark"
                     icon="login"
-                    @click="$store.dispatch('logoutUser')"
+                    @click="$store.dispatch('auth/logoutUser')"
                 />
 
                 <q-space />

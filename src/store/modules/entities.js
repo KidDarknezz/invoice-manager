@@ -30,4 +30,5 @@ export default {
     getters: {
         entities: state => state.entities,
     },
+    namespaced: true,
 }

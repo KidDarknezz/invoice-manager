@@ -169,9 +169,9 @@ export default {
         }
     },
     methods: {
-        ...mapActions('documentsStore', ['getDocument', 'saveDocument', 'getGeneralInfo']),
-        ...mapActions('invoicesStore', ['generateInvoiceFromQuote']),
-        ...mapActions('clientsStore', ['getClients']),
+        ...mapActions('documents', ['getDocument', 'saveDocument', 'getGeneralInfo']),
+        ...mapActions('invoices', ['generateInvoiceFromQuote']),
+        ...mapActions('clients', ['getClients']),
         generateReport() {
             this.$refs.html2Pdf.generatePdf()
         },
@@ -194,9 +194,9 @@ export default {
         },
     },
     computed: {
-        ...mapState('clientsStore', ['allClients']),
-        ...mapState('documentsStore', ['existingDocument', 'newInvoice', 'newQuote']),
-        ...mapState('invoicesStore', ['selectedQuoteToInvoice']),
+        ...mapState('clients', ['allClients']),
+        ...mapState('documents', ['existingDocument', 'newInvoice', 'newQuote']),
+        ...mapState('invoices', ['selectedQuoteToInvoice']),
 
         mapClients() {
             let clients = []

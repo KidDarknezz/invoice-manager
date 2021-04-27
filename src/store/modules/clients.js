@@ -9,14 +9,14 @@ export default {
         SET_ALLCLIENTS(state, payload) {
             state.allClients = payload
         },
-        setModifiedClient(state, payload) {
-            state.allClients[payload.index].name = payload.client.name
-            state.allClients[payload.index].phone = payload.client.phone
-            state.allClients[payload.index].email = payload.client.email
-        },
-        setRemovedClient(state, payload) {
-            state.allClients.splice(payload, 1)
-        },
+        // setModifiedClient(state, payload) {
+        //     state.allClients[payload.index].name = payload.client.name
+        //     state.allClients[payload.index].phone = payload.client.phone
+        //     state.allClients[payload.index].email = payload.client.email
+        // },
+        // setRemovedClient(state, payload) {
+        //     state.allClients.splice(payload, 1)
+        // },
     },
     actions: {
         getClients({commit, rootState}) {
@@ -62,4 +62,5 @@ export default {
     getters: {
         allClients: state => state.allClients,
     },
+    namespaced: true,
 }

@@ -17,6 +17,10 @@ export default {
         },
     },
     actions: {
+        setUser({commit}, payload) {
+            commit('SET_USER', payload)
+            commit('SET_UID', payload.uid)
+        },
         loginUser({commit, dispatch}, payload) {
             firebase
                 .auth()
@@ -45,4 +49,5 @@ export default {
         },
     },
     getters: {},
+    namespaced: true,
 }

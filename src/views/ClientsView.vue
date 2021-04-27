@@ -47,7 +47,7 @@
                                                     flat
                                                     @click="
                                                         $store.dispatch(
-                                                            'deleteClient',
+                                                            'clients/deleteClient',
                                                             props.row.id
                                                         )
                                                     "
@@ -113,6 +113,8 @@
 </template>
 
 <script>
+import {mapState, mapActions} from 'vuex'
+
 export default {
     data() {
         return {
@@ -148,17 +150,14 @@ export default {
         }
     },
     computed: {
-        user() {
-            return this.$store.getters.user
-        },
-        allClients() {
-            return this.$store.getters.allClients
-        },
+        ...mapState('clients', ['allClients']),
+        ...mapState('auth', ['user']),
     },
     methods: {
+        ...mapActions('clients', ['getClients', 'createClient']),
         async submitNewClient() {
-            await this.$store.dispatch('createClient', this.newClient)
-            this.$store.dispatch('getClients', this.entities)
+            await this.createClient(this.newClient)
+            this.getClients(this.entities)
             this.clearForm()
         },
         clearForm() {
@@ -169,7 +168,7 @@ export default {
     },
 
     mounted() {
-        this.$store.dispatch('getClients')
+        this.getClients()
     },
 }
 </script>

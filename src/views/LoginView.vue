@@ -39,7 +39,7 @@
                                 class="w700 full-width"
                                 color="primary"
                                 icon-right="login"
-                                @click="$store.dispatch('loginUser', loginData)"
+                                @click="$store.dispatch('auth/loginUser', loginData)"
                             />
                         </q-card-actions>
                     </q-card>
