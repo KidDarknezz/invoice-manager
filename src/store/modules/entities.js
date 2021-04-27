@@ -11,8 +11,8 @@ export default {
         },
     },
     actions: {
-        getEntities({commit, dispatch}, payload) {
-            firebase
+        async getEntities({commit, dispatch}, payload) {
+            await firebase
                 .firestore()
                 .collection('entities')
                 .where('members', 'array-contains', payload)

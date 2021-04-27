@@ -21,10 +21,10 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 
-firebase.auth().onAuthStateChanged(user => {
+firebase.auth().onAuthStateChanged(async user => {
     if (user) {
+        await store.dispatch('entities/getEntities', user.uid)
         store.dispatch('auth/setUser', user)
-        store.dispatch('entities/getEntities', user.uid)
     }
     new Vue({
         router,

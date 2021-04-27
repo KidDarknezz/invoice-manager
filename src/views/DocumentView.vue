@@ -197,6 +197,7 @@ export default {
         ...mapState('clients', ['allClients']),
         ...mapState('documents', ['existingDocument', 'newInvoice', 'newQuote']),
         ...mapState('invoices', ['selectedQuoteToInvoice']),
+        ...mapState('quotes', ['getQuote']),
 
         mapClients() {
             let clients = []

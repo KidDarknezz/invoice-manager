@@ -20,11 +20,10 @@ export default {
     },
     actions: {
         getClients({commit, rootState}) {
-            let userEntitie = rootState.entities.entities
             firebase
                 .firestore()
                 .collection('clients')
-                .where('entities', '==', userEntitie)
+                .where('entities', '==', rootState.entities.entities)
                 .get()
                 .then(querySnapshot => {
                     let data = []
@@ -35,8 +34,7 @@ export default {
                 })
         },
         createClient({rootState}, payload) {
-            let userEntitie = rootState.entities.entities
-            payload.entities = userEntitie
+            payload.entities = rootState.entities.entities
             firebase
                 .firestore()
                 .collection('clients')

@@ -2,7 +2,6 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 export default {
-    // namespaced: true,
     state: {
         allInvoices: [],
         selectedQuoteToInvoice: '',
@@ -11,21 +10,19 @@ export default {
         SET_ALLINVOICES(state, payload) {
             state.allInvoices = payload
         },
-        // setExistingInvoice(state, payload) {
-        //     state.existingInvoice = payload
-        // },
-        // setSelectedQuoteToInvoice(state, payload) {
-        //     state.selectedQuoteToInvoice = payload
-        // },
+        SET_EXISTINGINVOICE(state, payload) {
+            state.existingInvoice = payload
+        },
+        SET_SELECTEDQUOTETOINVOICE(state, payload) {
+            state.selectedQuoteToInvoice = payload
+        },
     },
     actions: {
         getAllInvoices({commit, rootState}, payload) {
-            let userEntitie = rootState.entities.entities
             firebase
                 .firestore()
                 .collection('invoices')
-                .where('entities', '==', userEntitie)
-                // .orderBy('number', 'desc')
+                .where('entities', '==', rootState.entities.entities)
                 .get()
                 .then(querySnapshot => {
                     let data = []
@@ -36,7 +33,7 @@ export default {
                 })
         },
         generateInvoiceFromQuote({commit}, payload) {
-            commit('setSelectedQuoteToInvoice', payload)
+            commit('SET_SELECTEDQUOTETOINVOICE', payload)
         },
     },
     getters: {allInvoices: state => state.allInvoices},

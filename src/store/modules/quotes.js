@@ -1,52 +1,45 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-const state = {
-    allQuotes: [],
-    existingQuote: {},
-}
-const mutations = {
-    setAllQuotes(state, payload) {
-        state.allQuotes = payload
-    },
-    setExistingQuote(state, payload) {
-        state.existingQuote = payload
-    },
-}
-const actions = {
-    getAllQuotes({commit}, payload) {
-        firebase
-            .firestore()
-            .collection('quotes')
-            .orderBy('number', 'desc')
-            .get()
-            .then(snapshot => {
-                let quotes = []
-                snapshot.forEach(quote => {
-                    let quo = quote.data()
-                    quo.id = quote.id
-                    quotes.push(quo)
-                })
-                commit('setAllQuotes', quotes)
-            })
-    },
-    getQuote({commit}, payload) {
-        firebase
-            .firestore()
-            .collection('quotes')
-            .doc(payload)
-            .get()
-            .then(snapshot => {
-                commit('setExistingQuote', snapshot.data())
-            })
-    },
-}
-const getters = {}
-
 export default {
+    state: {
+        allQuotes: [],
+        existingQuote: {},
+    },
+    mutations: {
+        SET_ALLQUOTES(state, payload) {
+            state.allQuotes = payload
+        },
+        SET_EXISTINGQUOTE(state, payload) {
+            state.existingQuote = payload
+        },
+    },
+    actions: {
+        getAllQuotes({commit, rootState}, payload) {
+            firebase
+                .firestore()
+                .collection('quotes')
+                .where('entities', '==', rootState.entities.entities)
+                .get()
+                .then(querySnapshot => {
+                    let data = []
+                    querySnapshot.forEach(doc => {
+                        data.push({id: doc.id, ...doc.data()})
+                    })
+                    commit('SET_ALLQUOTES', data)
+                })
+        },
+        getQuote({commit}, payload) {
+            firebase
+                .firestore()
+                .collection('quotes')
+                .doc(payload)
+                .get()
+                .then(snapshot => {
+                    commit('SET_EXISTINGQUOTE', snapshot.data())
+                })
+        },
+    },
+    getters: {},
     namespaced: true,
-    state,
-    mutations,
-    actions,
-    getters,
 }

@@ -103,8 +103,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions('quotesStore', ['getAllQuotes']),
-
+        ...mapActions('quotes', ['getAllQuotes']),
         calculateInvoiceTotal(items) {
             let total = 0
             items.forEach(item => {
@@ -114,7 +113,7 @@ export default {
         },
     },
     computed: {
-        ...mapState('quotesStore', ['allQuotes']),
+        ...mapState('quotes', ['allQuotes']),
     },
     mounted() {
         this.getAllQuotes()

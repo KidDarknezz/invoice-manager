@@ -30,26 +30,26 @@ export default {
                     commit('setExistingDocument', snapshot.data())
                 })
         },
-        saveDocument({}, payload) {
+        saveDocument({rootState}, payload) {
             if (confirm('Save document?')) {
-                let collection = `${payload.type}s`
                 if (payload.type == 'invoice') {
                     firebase
                         .firestore()
                         .collection('general')
-                        .doc('ZREbent3SGQ7OoMwgRUN')
+                        .doc('invoiceNumbers')
                         .update({lastInvoice: payload.number})
                 }
                 if (payload.type == 'quote') {
                     firebase
                         .firestore()
                         .collection('general')
-                        .doc('ZREbent3SGQ7OoMwgRUN')
+                        .doc('invoiceNumbers')
                         .update({lastQuote: payload.number})
                 }
+                payload.entities = rootState.entities.entities
                 firebase
                     .firestore()
-                    .collection(collection)
+                    .collection(`${payload.type}s`)
                     .add(payload)
                     .then(resp => {
                         router.push(`/document/${resp.id}/${payload.type}`)
@@ -60,7 +60,7 @@ export default {
             firebase
                 .firestore()
                 .collection('general')
-                .doc('ZREbent3SGQ7OoMwgRUN')
+                .doc('invoiceNumbers')
                 .get()
                 .then(snapshot => {
                     let lastInvoice = snapshot.data().lastInvoice

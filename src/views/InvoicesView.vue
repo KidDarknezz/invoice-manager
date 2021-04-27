@@ -82,7 +82,7 @@
             <q-space />
         </div>
 
-        <!-- <q-dialog v-model="fromQuoteDialog">
+        <q-dialog v-model="fromQuoteDialog">
             <q-card class="bb-font" style="min-width: 500px">
                 <q-card-section>
                     <div class="text-h5 text-dark w700">Create invoice from quote</div>
@@ -129,7 +129,7 @@
                     />
                 </q-card-actions>
             </q-card>
-        </q-dialog> -->
+        </q-dialog>
     </q-page>
 </template>
 
@@ -163,18 +163,19 @@ export default {
         }
     },
     computed: {
-        // ...mapState('quotesStore', ['allQuotes']),
+        ...mapState('quotes', ['allQuotes']),
         ...mapState('invoices', ['allInvoices']),
-        // filterQuotes() {
-        //     let filteredQuotes = []
-        //     this.allQuotes.forEach(quote => {
-        //         if (quote.number.includes(this.searchQuote)) filteredQuotes.push(quote)
-        //     })
-        //     return filteredQuotes
-        // },
+        filterQuotes() {
+            let filteredQuotes = []
+            this.allQuotes.forEach(quote => {
+                if (quote.number.includes(this.searchQuote)) filteredQuotes.push(quote)
+            })
+            return filteredQuotes
+        },
     },
     methods: {
-        ...mapActions('invoices', ['getAllInvoices']),
+        ...mapActions('invoices', ['getAllInvoices', 'generateInvoiceFromQuote']),
+        ...mapActions('quotes', ['getAllQuotes']),
         calculateInvoiceTotal(items) {
             let total = 0
             items.forEach(item => {
