@@ -23,7 +23,7 @@
             </div>
             <div class="col-lg-5 col-md-6 col-xs-12 gradient-bg shadow-5" style="height: 100vh">
                 <div class="flex flex-center" style="height: 100%">
-                    <q-card style="width: 450px; max-width: 80vw;" class="login-card">
+                    <q-card style="width: 450px; max-width: 80vw" class="login-card">
                         <q-card-section class="q-pa-lg">
                             <div class="text-h5 w700 text-dark">Iniciar sesion.</div>
                         </q-card-section>
@@ -35,7 +35,7 @@
                                 class="q-mb-md"
                                 v-model="loginData.email"
                                 input-email-login
-                                v-on:keyup.enter="loginUser(loginData)"
+                                @keyup.enter="loginUser(loginData)"
                             />
                             <q-input
                                 label="Password"
@@ -43,8 +43,8 @@
                                 :type="isPwd ? 'password' : 'text'"
                                 v-model="loginData.password"
                                 input-password-login
+                                @keyup.enter="loginUser(loginData)"
                             >
-                                v-on:keyup.enter="loginUser(loginData)" >
                                 <template v-slot:append>
                                     <q-icon
                                         :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -90,7 +90,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions('authStore', ['loginUser']),
+        ...mapActions('auth', ['loginUser']),
     },
 }
 </script>
