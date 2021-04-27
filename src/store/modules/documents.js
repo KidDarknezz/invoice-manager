@@ -35,15 +35,15 @@ export default {
                 if (payload.type == 'invoice') {
                     firebase
                         .firestore()
-                        .collection('general')
-                        .doc('invoiceNumbers')
+                        .collection('entities')
+                        .doc(rootState.entities.entities)
                         .update({lastInvoice: payload.number})
                 }
                 if (payload.type == 'quote') {
                     firebase
                         .firestore()
-                        .collection('general')
-                        .doc('invoiceNumbers')
+                        .collection('entities')
+                        .doc(rootState.entities.entities)
                         .update({lastQuote: payload.number})
                 }
                 payload.entities = rootState.entities.entities
@@ -56,15 +56,16 @@ export default {
                     })
             }
         },
-        getGeneralInfo({commit}, payload) {
+        getGeneralInfo({commit, rootState}, payload) {
             firebase
                 .firestore()
-                .collection('general')
-                .doc('invoiceNumbers')
+                .collection('entities')
+                .doc(rootState.entities.entities)
                 .get()
                 .then(snapshot => {
-                    let lastInvoice = snapshot.data().lastInvoice
-                    let lastQuote = snapshot.data().lastQuote
+                    let data = snapshot.data()
+                    let lastInvoice = data.lastInvoice
+                    let lastQuote = data.lastQuote
                     //
                     let newInvoice = parseInt(lastInvoice) + 1
                     let newInvoiceString = `${newInvoice}`
