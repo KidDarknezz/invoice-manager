@@ -10,16 +10,16 @@ import authStore from './authStore'
 Vue.use(Vuex)
 
 export default function () {
-  const Store = new Vuex.Store({
-    modules: {
-      clientsStore,
-      invoicesStore,
-      documentsStore,
-      quotesStore,
-      authStore
-    },
-    strict: process.env.DEV,
-  });
+    const Store = new Vuex.Store({
+        modules: {
+            clientsStore,
+            invoicesStore,
+            documentsStore,
+            quotesStore,
+            authStore,
+        },
+        strict: process.env.DEV,
+    })
 
-  return Store;
+    return Store
 }
