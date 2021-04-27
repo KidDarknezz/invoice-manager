@@ -5,7 +5,30 @@
         </q-page-container>
     </q-layout>
 </template>
+<script>
+// import firebase from 'firebase/app'
+// import 'firebase/firebase-auth'
 
+// export default {
+//     computed: {
+//         user() {
+//             return this.$store.getters.user
+//         },
+//     },
+//     mounted() {
+//         console.log(`user: ${!this.user}`)
+//         console.log(`user: ${this.user}`)
+//         if (!this.user) {
+//             var user = firebase.auth().currentUser
+//             console.log(user)
+//             console.log(user.id)
+//             this.$store.commit('SET_USER', user)
+//             this.$store.commit('SET_UID', user.uid)
+//             this.$store.dispatch('getEntities', user.uid)
+//         }
+//     },
+// }
+</script>
 <style>
 #app {
     font-family: 'Nunito', sans-serif;

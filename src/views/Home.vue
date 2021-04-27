@@ -44,7 +44,7 @@
                     rounded
                     class="w700 text-dark"
                     icon="login"
-                    @click="logoutUser()"
+                    @click="$store.dispatch('logoutUser')"
                 />
 
                 <q-space />
@@ -54,13 +54,6 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
-
-export default {
-    methods: {
-        ...mapActions('authStore', ['logoutUser']),
-    },
-}
 </script>
 
 <style>

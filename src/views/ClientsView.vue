@@ -45,7 +45,12 @@
                                                     icon="delete"
                                                     size="sm"
                                                     flat
-                                                    @click="deleteClient(props.row.id)"
+                                                    @click="
+                                                        $store.dispatch(
+                                                            'deleteClient',
+                                                            props.row.id
+                                                        )
+                                                    "
                                                 />
                                             </q-btn-group>
                                         </q-td>
@@ -108,8 +113,6 @@
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
-
 export default {
     data() {
         return {
@@ -144,11 +147,18 @@ export default {
             ],
         }
     },
+    computed: {
+        user() {
+            return this.$store.getters.user
+        },
+        allClients() {
+            return this.$store.getters.allClients
+        },
+    },
     methods: {
-        ...mapActions('clientsStore', ['getClients', 'createClient', 'deleteClient']),
-
-        submitNewClient() {
-            this.createClient(this.newClient)
+        async submitNewClient() {
+            await this.$store.dispatch('createClient', this.newClient)
+            this.$store.dispatch('getClients', this.entities)
             this.clearForm()
         },
         clearForm() {
@@ -157,11 +167,9 @@ export default {
             this.newClient.phone = ''
         },
     },
-    computed: {
-        ...mapState('clientsStore', ['allClients']),
-    },
+
     mounted() {
-        if (this.allClients.length == 0) this.getClients()
+        this.$store.dispatch('getClients')
     },
 }
 </script>

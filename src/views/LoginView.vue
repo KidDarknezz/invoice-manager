@@ -39,7 +39,7 @@
                                 class="w700 full-width"
                                 color="primary"
                                 icon-right="login"
-                                @click="loginUser(loginData)"
+                                @click="$store.dispatch('loginUser', loginData)"
                             />
                         </q-card-actions>
                     </q-card>
@@ -60,9 +60,6 @@ export default {
                 password: '',
             },
         }
-    },
-    methods: {
-        ...mapActions('authStore', ['loginUser']),
     },
 }
 </script>

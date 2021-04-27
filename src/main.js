@@ -5,10 +5,11 @@ import store from './store'
 import './quasar'
 
 import firebase from 'firebase/app'
+import 'firebase/auth'
 
 Vue.config.productionTip = false
 
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: 'AIzaSyCmhqOfz2yaOmz6lEbp0bE1cuyFu2xlgSo',
     authDomain: 'invoice-manager-6e5f5.firebaseapp.com',
     projectId: 'invoice-manager-6e5f5',
@@ -20,8 +21,15 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 
-new Vue({
-    router,
-    store,
-    render: h => h(App),
-}).$mount('#app')
+firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+        store.commit('SET_USER', user)
+        store.commit('SET_UID', user.uid)
+        store.dispatch('getEntities', user.uid)
+    }
+    new Vue({
+        router,
+        store,
+        render: h => h(App),
+    }).$mount('#app')
+})

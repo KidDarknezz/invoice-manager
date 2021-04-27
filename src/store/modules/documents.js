@@ -1,6 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import router from '../router'
+import router from '../../router'
 
 const state = {
     existingDocument: {},
