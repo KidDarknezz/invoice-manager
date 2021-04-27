@@ -20,12 +20,14 @@
                                 filled
                                 class="q-mb-md"
                                 v-model="loginData.email"
+                                input-email-login
                             />
                             <q-input
                                 label="Password"
                                 filled
                                 type="password"
                                 v-model="loginData.password"
+                                input-password-login
                             />
                         </q-card-section>
                         <q-separator />
@@ -36,6 +38,7 @@
                                 push
                                 unelevated
                                 rounded
+                                btn-login-login
                                 class="w700 full-width"
                                 color="primary"
                                 icon-right="login"
