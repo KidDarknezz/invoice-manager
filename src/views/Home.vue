@@ -44,6 +44,7 @@
                     rounded
                     class="w700 text-dark"
                     icon="login"
+                    btn-logout-home
                     @click="$store.dispatch('auth/logoutUser')"
                 />
 

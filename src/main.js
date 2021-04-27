@@ -21,6 +21,12 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 
+console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'testing') {
+    firebase.auth().useEmulator('http://localhost:9099/')
+    firebase.firestore().useEmulator('localhost', 8081)
+}
+
 firebase.auth().onAuthStateChanged(async user => {
     if (user) {
         await store.dispatch('entities/getEntities', user.uid)

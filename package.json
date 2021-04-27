@@ -4,7 +4,14 @@
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build"
+        "build": "vue-cli-service build",
+        "test:e2e": "vue-cli-service test:e2e",
+        "serve-emulator": "firebase emulators:start --import=./emulators.backup --export-on-exit",
+        "serve-emulator-no-import": "firebase emulators:start",
+        "emulators-export": "firebase emulators:export ./emulators.backup",
+        "firestore-export": "firestore-export --accountCredentials credentials.json --backupFile output.json",
+        "firestore-import": "export FIRESTORE_EMULATOR_HOST=0.0.0.0:8081; firestore-import --accountCredentials credentials.json --backupFile output.json",
+        "firebase-auth-import": "firebase auth:import users.json"
     },
     "dependencies": {
         "@quasar/extras": "^1.10.4",
@@ -19,6 +26,7 @@
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.5.12",
+        "@vue/cli-plugin-e2e-cypress": "^4.5.12",
         "@vue/cli-plugin-router": "~4.5.12",
         "@vue/cli-plugin-vuex": "~4.5.12",
         "@vue/cli-service": "~4.5.12",
