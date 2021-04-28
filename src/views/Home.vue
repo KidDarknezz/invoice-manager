@@ -3,7 +3,7 @@
         <div class="absolute-center">
             <div class="row q-mb-lg">
                 <q-space />
-                <q-img :src="require('@/assets/logo_2.webp')" style="width: 150px" />
+                <q-img :src="logo" style="width: 150px" :entityName="entityName" />
                 <q-space />
             </div>
             <div class="row q-mb-lg">
@@ -55,6 +55,16 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+export default {
+    computed: {
+        ...mapState('entities', ['logo', 'entityName']),
+    },
+    mounted() {
+        console.log(`entity name:${this.entityName}`)
+        console.log(`logo:${this.logo}`)
+    },
+}
 </script>
 
 <style>

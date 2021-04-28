@@ -4,10 +4,18 @@ import 'firebase/firebase-auth'
 export default {
     state: {
         entities: '',
+        logo: '',
+        entityName: '',
     },
     mutations: {
         SET_ENTITIES: (state, payload) => {
             state.entities = payload
+        },
+        SET_LOGO: (state, payload) => {
+            state.logo = payload
+        },
+        SET_ENTITYNAME: (state, payload) => {
+            state.entityName = payload
         },
     },
     actions: {
@@ -19,7 +27,12 @@ export default {
                 .get()
                 .then(querySnapshot => {
                     querySnapshot.forEach(doc => {
-                        if (doc.data()) commit('SET_ENTITIES', doc.id)
+                        if (doc.data()) {
+                            let data = doc.data()
+                            commit('SET_ENTITIES', doc.id)
+                            commit('SET_LOGO', data.logo)
+                            commit('SET_ENTITYNAME', data.name)
+                        }
                     })
                 })
                 .catch(error => {
