@@ -2,14 +2,14 @@
     <q-page>
         <div class="row q-pt-xl">
             <q-space />
-            <div class="col-lg-7">
+            <div class="col-lg-7 col-md-9 col-sm-10 col-xs-12">
                 <div class="row q-mb-md q-px-md">
-                    <div class="text-h4 w700 text-dark">Clients</div>
+                    <div class="text-h4 w700 text-dark">Clientes</div>
                 </div>
                 <div class="row q-mb-md q-px-md">
                     <q-btn
                         flat
-                        label="Back"
+                        label="Atras"
                         class="w700"
                         icon="fas fa-long-arrow-alt-left"
                         rounded
@@ -19,7 +19,7 @@
                     />
                 </div>
                 <div class="row">
-                    <div class="col-lg-8 q-px-md">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 q-px-md q-mb-lg">
                         <div class="row">
                             <q-table
                                 class="full-width"
@@ -59,42 +59,41 @@
                             </q-table>
                         </div>
                     </div>
-                    <div class="col-lg-4 q-px-md">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 q-px-md q-mb-lg">
                         <q-form @submit="submitNewClient()">
                             <q-card>
                                 <q-card-section>
-                                    <div class="text-h6 w700 text-dark">New client</div>
+                                    <div class="text-h6 w700 text-dark">Nuevo cliente</div>
                                 </q-card-section>
                                 <q-card-section>
                                     <q-input
-                                        label="Name"
+                                        label="Nombre"
                                         filled
                                         color="secondary"
                                         class="q-mb-md"
                                         v-model="newClient.name"
-                                        :rules="[val => !!val || 'Field is required']"
+                                        :rules="[val => !!val || 'Campo requerido']"
                                     />
                                     <q-input
-                                        label="Email"
+                                        label="Correo"
                                         filled
                                         color="secondary"
                                         class="q-mb-md"
                                         v-model="newClient.email"
-                                        :rules="[val => !!val || 'Field is required']"
+                                        :rules="[val => !!val || 'Campo requerido']"
                                     />
                                     <q-input
-                                        label="Phone"
-                                        :mask="newClient.phone[0] == 6 ? '####-####' : '###-####'"
+                                        label="Telefono"
                                         filled
                                         color="secondary"
                                         v-model="newClient.phone"
-                                        :rules="[val => !!val || 'Field is required']"
+                                        :rules="[val => !!val || 'Campo requerido']"
                                     />
                                 </q-card-section>
                                 <q-card-actions>
                                     <q-space />
                                     <q-btn
-                                        label="Save"
+                                        label="Guardar"
                                         flat
                                         color="dark"
                                         class="w700"
@@ -126,26 +125,26 @@ export default {
             columns: [
                 {
                     name: 'name',
-                    label: 'Name',
+                    label: 'Nombre',
                     align: 'left',
                     field: 'name',
                     sortable: true,
                 },
                 {
                     name: 'email',
-                    label: 'Email',
+                    label: 'Correo',
                     field: 'email',
                     sortable: true,
                     align: 'left',
                 },
                 {
                     name: 'phone',
-                    label: 'Phone',
+                    label: 'Telefono',
                     field: 'phone',
                     sortable: true,
                     align: 'left',
                 },
-                {name: 'actions', label: 'Actions', align: 'left'},
+                {name: 'actions', label: 'Acciones', align: 'left'},
             ],
         }
     },

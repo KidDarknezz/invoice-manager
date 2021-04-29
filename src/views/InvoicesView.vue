@@ -2,14 +2,14 @@
     <q-page>
         <div class="row q-pt-xl">
             <q-space />
-            <div class="col-lg-7">
+            <div class="col-lg-7 col-md-9 col-sm-10 col-xs-12">
                 <div class="row q-mb-md q-px-md">
-                    <div class="text-h4 w700 text-dark">Invoices</div>
+                    <div class="text-h4 w700 text-dark">Facturas</div>
                 </div>
                 <div class="row q-mb-md q-px-md">
                     <q-btn
                         flat
-                        label="Back"
+                        label="Atras"
                         class="w700"
                         icon="fas fa-long-arrow-alt-left"
                         rounded
@@ -20,7 +20,7 @@
                     <q-space />
                     <q-btn
                         flat
-                        label="New"
+                        label="Nuevo"
                         class="w700"
                         icon-right="far fa-file"
                         rounded
@@ -30,7 +30,7 @@
                     />
                     <q-btn
                         flat
-                        label="From quote"
+                        label="De Cot."
                         class="w700"
                         icon-right="fas fa-file-invoice-dollar"
                         rounded
@@ -40,7 +40,7 @@
                     />
                 </div>
                 <div class="row">
-                    <div class="col-lg-12 q-px-md">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 q-px-md">
                         <div class="row">
                             <q-table
                                 class="full-width"
@@ -151,14 +151,14 @@ export default {
                 },
                 {
                     name: 'client',
-                    label: 'Client',
+                    label: 'Cliente',
                     align: 'client',
                     field: 'name',
                     sortable: true,
                     align: 'left',
                 },
                 {name: 'total', label: 'Total', align: 'left'},
-                {name: 'actions', label: 'Actions', align: 'left'},
+                {name: 'actions', label: 'Acciones', align: 'left'},
             ],
         }
     },

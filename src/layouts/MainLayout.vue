@@ -16,7 +16,7 @@
                         <q-space />
                         <div class="col-lg-2 col-xs-2 flex flex-center">
                             <q-btn
-                                label="Cerrar sesion"
+                                label="Salir"
                                 no-caps
                                 flat
                                 rounded
