@@ -83,12 +83,12 @@
         </div>
 
         <q-dialog v-model="fromQuoteDialog">
-            <q-card class="bb-font" style="min-width: 500px">
+            <q-card class="bb-font" style="width: 700px; max-width: 99vw;">
                 <q-card-section>
-                    <div class="text-h5 text-dark w700">Create invoice from quote</div>
+                    <div class="text-h5 text-dark w700">Crear factura de cotizacion</div>
                 </q-card-section>
                 <q-card-section>
-                    <q-input label="Search quote" filled v-model="searchQuote" autofocus />
+                    <q-input label="Buscar cotizacion" filled v-model="searchQuote" autofocus />
                 </q-card-section>
                 <q-card-section v-if="filterQuotes.length > 0 && searchQuote">
                     <div
@@ -97,9 +97,9 @@
                         :key="quote.id"
                         style="border-bottom: solid 1px #e6e6e6"
                     >
-                        <div class="col-lg-3">{{ quote.number }}</div>
-                        <div class="col">{{ quote.clientData.name }}</div>
-                        <div class="col-lg-1">
+                        <div class="col-lg-5 col-xs-3">{{ quote.number }}</div>
+                        <div class="col-lg-5 col-xs-7">{{ quote.clientData.name }}</div>
+                        <div class="col-lg-2 col-xs-2">
                             <q-btn
                                 icon="forward"
                                 color="primary"
@@ -120,7 +120,7 @@
                 <q-card-actions>
                     <q-space />
                     <q-btn
-                        label="Cancel"
+                        label="Cancelar"
                         flat
                         rounded
                         color="dark"

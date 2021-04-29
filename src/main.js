@@ -21,10 +21,10 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 
-if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'testing') {
-    firebase.auth().useEmulator('http://localhost:9099/')
-    firebase.firestore().useEmulator('localhost', 8081)
-}
+// if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'testing') {
+//     firebase.auth().useEmulator('http://localhost:9099/')
+//     firebase.firestore().useEmulator('localhost', 8081)
+// }
 
 firebase.auth().onAuthStateChanged(async user => {
     if (user) {
