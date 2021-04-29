@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+import AuthLayout from '@/layouts/AuthLayout'
+import MainLayout from '@/layouts/MainLayout'
+
 import LoginView from '@/views/LoginView'
 import Home from '@/views/Home.vue'
 import QuotesView from '@/views/QuotesView'
@@ -15,48 +19,60 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/login',
-        name: 'Login',
-        component: LoginView,
+        component: AuthLayout,
+        children: [
+            {
+                path: '/login',
+                name: 'Login',
+                component: LoginView,
+            },
+        ],
     },
     {
         path: '/',
-        name: 'Home',
-        component: Home,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
-        path: '/document/:documentId/:documentType',
-        name: 'DocumentView',
-        component: DocumentView,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
-        path: '/quotes',
-        name: 'QuotesView',
-        component: QuotesView,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
-        path: '/invoices',
-        name: 'InvoicesView',
-        component: InvoicesView,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
-        path: '/clients',
-        name: 'ClientsView',
-        component: ClientsView,
-        meta: {
-            requiresAuth: true,
-        },
+        component: MainLayout,
+        children: [
+            {
+                path: '/',
+                name: 'Home',
+                component: Home,
+                meta: {
+                    requiresAuth: true,
+                },
+            },
+            {
+                path: '/quotes',
+                name: 'QuotesView',
+                component: QuotesView,
+                meta: {
+                    requiresAuth: true,
+                },
+            },
+            {
+                path: '/document/:documentId/:documentType',
+                name: 'DocumentView',
+                component: DocumentView,
+                meta: {
+                    requiresAuth: true,
+                },
+            },
+            {
+                path: '/invoices',
+                name: 'InvoicesView',
+                component: InvoicesView,
+                meta: {
+                    requiresAuth: true,
+                },
+            },
+            {
+                path: '/clients',
+                name: 'ClientsView',
+                component: ClientsView,
+                meta: {
+                    requiresAuth: true,
+                },
+            },
+        ],
     },
 ]
 
