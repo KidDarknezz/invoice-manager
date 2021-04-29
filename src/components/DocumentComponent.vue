@@ -129,7 +129,7 @@
         <div class="bg-grey-3 q-pb-lg">
             <div class="bottom-document q-mx-lg q-px-xl">
                 <div class="row q-py-lg">
-                    <div class="col-lg-6 col-sm-6">
+                    <div class="col-lg-6 col-sm-6 col-xs-6">
                         <div class="text-subtitle2 w700 q-mb-sm">INFORMACION DE PAGO</div>
                         <div class="text-body">
                             <span class="w700">No. Cuenta:</span> 04-72-98-558246-9
@@ -140,7 +140,7 @@
                         <div class="text-body"><span class="w700">Tipo:</span> Ahorros</div>
                         <div class="text-body"><span class="w700">Banco:</span> Banco General</div>
                     </div>
-                    <div class="col-lg-6 col-sm-6">
+                    <div class="col-lg-6 col-sm-6 col-xs-6">
                         <div class="text-subtitle2 w700 q-mb-sm">NOTAS:</div>
                         <div class="text-body">
                             {{ data.notes }}
@@ -150,17 +150,17 @@
 
                 <q-separator />
                 <div class="row text-center q-py-lg">
-                    <div class="col-lg-4 col-sm-4">
+                    <div class="col-lg-4 col-sm-4 col-xs-4">
                         <div class="text-caption w600">
                             <q-icon name="r_phone" /> (507) 6480-6778
                         </div>
                     </div>
-                    <div class="col-lg-4 col-sm-4">
+                    <div class="col-lg-4 col-sm-4 col-xs-4">
                         <div class="text-caption w600">
                             <q-icon name="r_language" /> www.blueballoon.io
                         </div>
                     </div>
-                    <div class="col-lg-4 col-sm-4">
+                    <div class="col-lg-4 col-sm-4 col-xs-4">
                         <div class="text-caption w600">
                             <q-icon name="r_email" /> diego@blueballoon.io
                         </div>

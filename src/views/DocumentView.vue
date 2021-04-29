@@ -33,8 +33,15 @@
                 </div>
                 <div class="q-pa-md">
                     <DocumentComponent class="shadow-3" :data="documentData" v-if="hideForMobile" />
-                    <div class="text-h6 w700 text-center text-grey-7 q-py-md" v-else>
-                        Previsualizacion disponible solo para computadoras o iPads
+                    <div v-else>
+                        <div class="text-h6 w700 text-right text-grey-7 q-py-md">
+                            <q-icon name="arrow_upward" size="xl" />
+                            <br />
+                            ¡Documento listo <br />para descargar!
+                        </div>
+                        <div class="text-subtitle2 w700 text-right text-grey-7 q-py-md">
+                            Previsualizacion disponible solo para computadoras o iPads
+                        </div>
                     </div>
                 </div>
 
