@@ -26,12 +26,12 @@
                     </div>
                 </div>
                 <q-space />
-                <div class="col-lg-3 column flex-center">
+                <div class="col-lg-3 col-md-3 col-xs-3 column flex-center">
                     <div class="text-h6 w700 text-dark text-right full-width on-left">
                         Blue Balloon Inc.
                     </div>
                 </div>
-                <div class="col-lg-1">
+                <div class="col-lg-1 col-md-1 col-xs-1">
                     <q-img
                         :src="require('@/assets/logo_2.webp')"
                         style="width: 50px; float: right"
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8 col-sm-8">
+                <div class="col-lg-8 col-sm-8 col-xs-8">
                     <div class="text-subtitle2 w700 text-secondary">CLIENTE</div>
                     <div class="text-h6 w700 text-dark">
                         {{ data.clientData ? data.clientData.name : '' }}
@@ -51,7 +51,7 @@
                         Email. {{ data.clientData ? data.clientData.email : '' }}
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-4 text-right">
+                <div class="col-lg-4 col-sm-4 col-xs-4 text-right">
                     <q-separator />
                     <div class="text-subitle2 w700 q-mt-sm text-secondary">Balance</div>
                     <div class="text-h6 w700 text-dark">$ {{ calculateTotal }}</div>
@@ -65,47 +65,47 @@
                 </div>
             </div>
             <div class="row text-center q-mt-lg q-mb-md">
-                <div class="col-lg-5 col-sm-5 q-pr-md">
+                <div class="col-lg-5 col-sm-5 col-xs-5 q-pr-md">
                     <div class="text-subtitle2 w700 bg-dark text-white q-py-xs table-header">
                         DESCRIPCION
                     </div>
                 </div>
                 <q-space />
-                <div class="col-lg-2 col-sm-2 q-px-md">
+                <div class="col-lg-2 col-sm-2 col-xs-2 q-px-md">
                     <div class="text-subtitle2 w700 bg-dark text-white q-py-xs table-header">
                         COSTO
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-3 q-px-md">
+                <div class="col-lg-3 col-sm-3 col-xs-3 q-px-md">
                     <div class="text-subtitle2 w700 bg-dark text-white q-py-xs table-header">
                         CANTIDAD
                     </div>
                 </div>
-                <div class="col-lg-2 col-sm-2 q-pl-md">
+                <div class="col-lg-2 col-sm-2 col-xs-2 q-pl-md">
                     <div class="text-subtitle2 w700 bg-secondary text-white q-py-xs table-header">
                         SUB TOTAL
                     </div>
                 </div>
             </div>
             <div class="row q-mb-sm" v-for="(item, i) in data.items" :key="i">
-                <div class="col-lg-5 col-sm-5">
+                <div class="col-lg-5 col-sm-5 col-xs-5">
                     <div class="text-subtitle2 w700">
                         {{ item.name.toUpperCase() }}
                     </div>
                     <div class="text-body">{{ item.description }}</div>
                 </div>
                 <q-space />
-                <div class="col-lg-2 col-sm-2 text-center">
+                <div class="col-lg-2 col-sm-2 col-xs-2 text-center">
                     <div class="text-subtitle2">
                         $ {{ item.price == '' ? '' : parseFloat(item.price).toFixed(2) }}
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-3 text-center">
+                <div class="col-lg-3 col-sm-3 col-xs-3 text-center">
                     <div class="text-subtitle2">
                         {{ item.price == '' ? '' : item.amount }}
                     </div>
                 </div>
-                <div class="col-lg-2 col-sm-2 text-center">
+                <div class="col-lg-2 col-sm-2 col-xs-2 text-center">
                     <div class="text-subtitle2">
                         $
                         {{
@@ -202,7 +202,9 @@ export default {
     },
     methods: {
         formatDate(format) {
-            return moment(this.data.date).locale('es').format(format)
+            return moment(this.data.date)
+                .locale('es')
+                .format(format)
         },
     },
     computed: {

@@ -2,38 +2,47 @@
     <q-page>
         <div class="row">
             <q-space />
-            <div class="col-lg-6 q-ma-xl">
-                <div class="row q-mb-md">
-                    <q-btn
-                        flat
-                        label="Back"
-                        class="w700"
-                        icon="fas fa-long-arrow-alt-left"
-                        rounded
-                        size="sm"
-                        to="/"
-                        color="dark"
-                    />
+            <div class="col-lg-7 col-md-9 col-sm-10 col-xs-12">
+                <div class="row q-my-lg">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 flex flex-center">
+                        <q-btn
+                            flat
+                            label="Atras"
+                            class="w700"
+                            icon="fas fa-long-arrow-alt-left"
+                            rounded
+                            size="sm"
+                            to="/"
+                            color="dark"
+                        />
+                    </div>
                     <q-space />
-                    <q-btn
-                        no-caps
-                        label="Export to PDF"
-                        icon="far fa-file-pdf"
-                        class="w700"
-                        push
-                        rounded
-                        color="primary"
-                        @click="generateReport()"
-                        v-if="$route.params.documentId != 'new'"
-                    />
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 flex flex-center">
+                        <q-btn
+                            no-caps
+                            label="Descargar PDF"
+                            icon="far fa-file-pdf"
+                            class="w700"
+                            push
+                            rounded
+                            color="primary"
+                            @click="generateReport()"
+                            v-if="$route.params.documentId != 'new'"
+                        />
+                    </div>
+                </div>
+                <div class="q-pa-md">
+                    <DocumentComponent class="shadow-3" :data="documentData" v-if="hideForMobile" />
+                    <div class="text-h6 w700 text-center text-grey-7 q-py-md" v-else>
+                        Previsualizacion disponible solo para computadoras o iPads
+                    </div>
                 </div>
 
-                <DocumentComponent class="shadow-3" :data="documentData" />
                 <vue-html2pdf
                     :show-layout="false"
                     :float-layout="true"
                     :enable-download="true"
-                    :preview-modal="true"
+                    :preview-modal="false"
                     :paginate-elements-by-height="2000"
                     :filename="`${$route.params.documentType}-${documentData.number}`"
                     :pdf-quality="2"
@@ -48,13 +57,13 @@
                     </section>
                 </vue-html2pdf>
             </div>
-            <div class="col-lg-4 q-ma-xl" v-if="$route.params.documentId == 'new'">
-                <div class="row q-mb-md">
+            <div class="col-lg-4" v-if="$route.params.documentId == 'new'">
+                <div class="row q-my-lg q-px-md">
                     <q-space />
                     <q-btn
                         push
                         no-caps
-                        label="Save"
+                        label="Guardar"
                         class="w700"
                         icon-right="far fa-save"
                         size="sm"
@@ -63,94 +72,95 @@
                         @click="saveDocument(documentData)"
                     />
                 </div>
-                <q-card>
-                    <q-card-section>
-                        <div class="text-h6 w700 text-dark">
-                            New {{ $route.params.documentType }}
-                        </div>
-                    </q-card-section>
-                    <q-card-section>
-                        <q-select
-                            label="Client"
-                            color="primary"
-                            :options="mapClients"
-                            filled
-                            class="q-mb-md"
-                            v-model="documentData.clientData"
-                            map-options
-                            emit-value
-                        />
-                        <q-separator class="q-my-md" />
-                        <div class="q-mb-md" v-for="(item, i) in documentData.items" :key="i">
-                            <div class="text-caption w700 q-mb-sm">Item {{ i + 1 }}</div>
-                            <q-input
-                                label="Item name"
-                                filled
+                <div class="q-pa-md">
+                    <q-card>
+                        <q-card-section>
+                            <div class="text-h6 w700 text-dark">
+                                Nuevo
+                            </div>
+                        </q-card-section>
+                        <q-card-section>
+                            <q-select
+                                label="Client"
                                 color="primary"
-                                class="q-mb-md"
-                                v-model="documentData.items[i].name"
-                            >
-                                <template v-slot:after>
-                                    <q-btn
-                                        round
-                                        dense
-                                        flat
-                                        icon="delete"
-                                        @click="removeItem(i)"
-                                        :disable="documentData.items.length > 1 ? false : true"
-                                    />
-                                </template>
-                            </q-input>
-                            <q-input
-                                label="Item description (optional)"
+                                :options="mapClients"
                                 filled
-                                color="primary"
                                 class="q-mb-md"
-                                v-model="documentData.items[i].description"
+                                v-model="documentData.clientData"
+                                map-options
+                                emit-value
                             />
-                            <div class="row">
-                                <div class="col on-left">
-                                    <q-input
-                                        label="Price"
-                                        filled
-                                        color="primary"
-                                        v-model="documentData.items[i].price"
-                                    />
-                                </div>
-                                <div class="col on-right">
-                                    <q-input
-                                        label="Amount"
-                                        filled
-                                        color="primary"
-                                        v-model="documentData.items[i].amount"
-                                    />
+                            <q-separator class="q-my-md" />
+                            <div class="q-mb-md" v-for="(item, i) in documentData.items" :key="i">
+                                <div class="text-caption w700 q-mb-sm">Item {{ i + 1 }}</div>
+                                <q-input
+                                    label="Item name"
+                                    filled
+                                    color="primary"
+                                    class="q-mb-md"
+                                    v-model="documentData.items[i].name"
+                                >
+                                    <template v-slot:after>
+                                        <q-btn
+                                            round
+                                            dense
+                                            flat
+                                            icon="delete"
+                                            @click="removeItem(i)"
+                                            :disable="documentData.items.length > 1 ? false : true"
+                                        />
+                                    </template>
+                                </q-input>
+                                <q-input
+                                    label="Item description (optional)"
+                                    filled
+                                    color="primary"
+                                    class="q-mb-md"
+                                    v-model="documentData.items[i].description"
+                                />
+                                <div class="row">
+                                    <div class="col on-left">
+                                        <q-input
+                                            label="Price"
+                                            filled
+                                            color="primary"
+                                            v-model="documentData.items[i].price"
+                                        />
+                                    </div>
+                                    <div class="col on-right">
+                                        <q-input
+                                            label="Amount"
+                                            filled
+                                            color="primary"
+                                            v-model="documentData.items[i].amount"
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <q-space />
-                            <q-btn
-                                flat
-                                label="Add item"
-                                icon="add"
-                                no-caps
-                                rounded
+                            <div class="row">
+                                <q-space />
+                                <q-btn
+                                    flat
+                                    label="Add item"
+                                    icon="add"
+                                    no-caps
+                                    rounded
+                                    color="primary"
+                                    @click="addNewItem()"
+                                />
+                            </div>
+                            <q-separator class="q-my-md" />
+                            <q-input
+                                type="textarea"
+                                rows="4"
+                                label="Notes"
+                                filled
                                 color="primary"
-                                @click="addNewItem()"
+                                v-model="documentData.notes"
                             />
-                        </div>
-
-                        <q-separator class="q-my-md" />
-                        <q-input
-                            type="textarea"
-                            rows="4"
-                            label="Notes"
-                            filled
-                            color="primary"
-                            v-model="documentData.notes"
-                        />
-                    </q-card-section>
-                </q-card>
+                        </q-card-section>
+                    </q-card>
+                </div>
             </div>
             <q-space />
         </div>
@@ -161,6 +171,7 @@
 import VueHtml2pdf from 'vue-html2pdf'
 import DocumentComponent from '@/components/DocumentComponent'
 import {mapState, mapActions} from 'vuex'
+import {Platform} from 'quasar'
 
 export default {
     data() {
@@ -212,6 +223,10 @@ export default {
         returnDocumentNumber() {
             if (this.$route.params.documentType == 'invoice') return this.newInvoice
             if (this.$route.params.documentType == 'quote') return this.newQuote
+        },
+        hideForMobile() {
+            if (Platform.is.iphone || Platform.is.android) return false
+            else return true
         },
     },
 
