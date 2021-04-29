@@ -32,6 +32,7 @@
                             <q-input
                                 label="Email"
                                 filled
+                                type="email"
                                 class="q-mb-md"
                                 v-model="loginData.email"
                                 input-email-login
