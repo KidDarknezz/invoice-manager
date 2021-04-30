@@ -18,6 +18,11 @@ export default {
         setNewQuoteNo(state, payload) {
             state.newQuote = payload
         },
+        RESET_STATES(state) {
+            state.existingDocument = {}
+            state.newInvoice = ''
+            state.newOuote = ''
+        },
     },
     actions: {
         getDocument({commit}, payload) {

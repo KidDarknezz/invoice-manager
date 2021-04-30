@@ -35,12 +35,16 @@ export default {
                     alert(err.message)
                 })
         },
-        logoutUser() {
+        logoutUser({commit}) {
             firebase
                 .auth()
                 .signOut()
                 .then(() => {
-                    console.log('logout succesfull')
+                    commit('documents/RESET_STATES', null, {root: true})
+                    commit('entities/RESET_STATES', null, {root: true})
+                    commit('invoices/RESET_STATES', null, {root: true})
+                    commit('quotes/RESET_STATES', null, {root: true})
+                    commit('clients/RESET_STATES', null, {root: true})
                     router.replace('/login')
                 })
                 .catch(err => {

@@ -9,6 +9,9 @@ export default {
         SET_ALLCLIENTS(state, payload) {
             state.allClients = payload
         },
+        RESET_STATES(state) {
+            state.allClients = []
+        },
         // setModifiedClient(state, payload) {
         //     state.allClients[payload.index].name = payload.client.name
         //     state.allClients[payload.index].phone = payload.client.phone

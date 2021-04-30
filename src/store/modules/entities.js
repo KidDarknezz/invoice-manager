@@ -21,6 +21,12 @@ export default {
         SET_ENTITYINFO: (state, payload) => {
             state.entityInfo = payload
         },
+        RESET_STATES(state) {
+            state.entities = ''
+            state.logo = ''
+            state.entityName = ''
+            state.entityInfo = {}
+        },
     },
     actions: {
         async getEntities({commit, dispatch}, payload) {
