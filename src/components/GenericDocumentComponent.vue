@@ -150,31 +150,44 @@
             </div>
         </div>
         <q-separator :class="`q-my-lg bg-${entityInfo.accentColor}`" style="height: 3px" />
-        <div class="row q-mx-lg q-px-xl q-pt-lg">
-            <div class="col-lg-6 col-sm-6">
-                <div class="text-h6 w700">Sub-Total:</div>
+        <div v-if="entityInfo.collectsTaxes">
+            <div class="row q-mx-lg q-px-xl q-pt-lg">
+                <div class="col-lg-6 col-sm-6">
+                    <div class="text-h6 w700">Sub-Total:</div>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <div class="text-h6 w700 text-right">{{ formatCurrency(calculateTotal) }}</div>
+                </div>
             </div>
-            <div class="col-lg-6 col-sm-6">
-                <div class="text-h6 w700 text-right">{{ formatCurrency(calculateTotal) }}</div>
+            <div class="row q-mx-lg q-px-xl q-mb-md">
+                <div class="col-lg-6 col-sm-6">
+                    <div class="text-h6 w700">ITBMS:</div>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <div class="text-h6 w700 text-right">
+                        {{ formatCurrency((calculateTotal * 0.07).toFixed(2)) }}
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row q-mx-lg q-px-xl q-mb-md">
-            <div class="col-lg-6 col-sm-6">
-                <div class="text-h6 w700">ITBMS:</div>
-            </div>
-            <div class="col-lg-6 col-sm-6">
-                <div class="text-h6 w700 text-right">
-                    {{ formatCurrency((calculateTotal * 0.07).toFixed(2)) }}
+            <div class="row q-mx-lg q-px-xl q-pb-lg">
+                <div class="col-lg-6 col-sm-6">
+                    <div :class="`text-h5 w700 text-${entityInfo.primaryColor}`">TOTAL:</div>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <div :class="`text-h5 w700 text-right text-${entityInfo.primaryColor}`">
+                        {{ formatCurrency((calculateTotal * 1.07).toFixed(2)) }}
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row q-mx-lg q-px-xl q-pb-lg">
+
+        <div class="row q-mx-lg q-px-xl q-pb-lg" v-else>
             <div class="col-lg-6 col-sm-6">
                 <div :class="`text-h5 w700 text-${entityInfo.primaryColor}`">TOTAL:</div>
             </div>
             <div class="col-lg-6 col-sm-6">
                 <div :class="`text-h5 w700 text-right text-${entityInfo.primaryColor}`">
-                    {{ formatCurrency((calculateTotal * 1.07).toFixed(2)) }}
+                    {{ formatCurrency((calculateTotal * 1).toFixed(2)) }}
                 </div>
             </div>
         </div>
@@ -186,15 +199,15 @@
                             <div class="text-subtitle2 w700 q-mb-sm">
                                 INFORMACION DE PAGO
                             </div>
-                            <div class="text-body">
-                                <span class="w700">No. Cuenta:</span> 04-72-98-558246-9
-                            </div>
-                            <div class="text-body">
-                                <span class="w700">Nombre:</span> Diego Rodriguez
-                            </div>
-                            <div class="text-body"><span class="w700">Tipo:</span> Ahorros</div>
-                            <div class="text-body">
-                                <span class="w700">Banco:</span> Banco General
+                            <div
+                                class="text-body"
+                                v-for="(payInfo, i) in entityInfo.paymentInfo"
+                                :key="i"
+                            >
+                                <span class="w700"
+                                    >{{ Object.keys(payInfo)[0].toUpperCase() }}:</span
+                                >
+                                {{ payInfo[Object.keys(payInfo)[0]] }}
                             </div>
                         </div>
                     </div>
