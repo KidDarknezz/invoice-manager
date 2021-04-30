@@ -64,7 +64,7 @@
                         Balance
                     </div>
                     <div :class="`text-h6 w700 text-${entityInfo.accentColor}`">
-                        $ {{ calculateTotal }}
+                        {{ formatCurrency(calculateTotal) }}
                     </div>
                     <div class="text-subtitle2 w700">
                         {{ formatDate('dddd').toUpperCase() }}
@@ -124,7 +124,11 @@
                 <q-space />
                 <div class="col-lg-2 col-sm-2 col-xs-2 text-center">
                     <div class="text-subtitle2">
-                        $ {{ item.price == '' ? '' : parseFloat(item.price).toFixed(2) }}
+                        {{
+                            item.price == ''
+                                ? ''
+                                : formatCurrency(parseFloat(item.price).toFixed(2))
+                        }}
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-xs-3 text-center">
@@ -134,11 +138,12 @@
                 </div>
                 <div class="col-lg-2 col-sm-2 col-xs-2 text-center">
                     <div class="text-subtitle2">
-                        $
                         {{
                             item.price == ''
                                 ? ''
-                                : (parseFloat(item.price) * parseFloat(item.amount)).toFixed(2)
+                                : formatCurrency(
+                                      (parseFloat(item.price) * parseFloat(item.amount)).toFixed(2)
+                                  )
                         }}
                     </div>
                 </div>
@@ -150,7 +155,7 @@
                 <div class="text-h6 w700">Sub-Total:</div>
             </div>
             <div class="col-lg-6 col-sm-6">
-                <div class="text-h6 w700 text-right">$ {{ calculateTotal }}</div>
+                <div class="text-h6 w700 text-right">{{ formatCurrency(calculateTotal) }}</div>
             </div>
         </div>
         <div class="row q-mx-lg q-px-xl q-mb-md">
@@ -159,7 +164,7 @@
             </div>
             <div class="col-lg-6 col-sm-6">
                 <div class="text-h6 w700 text-right">
-                    $ {{ (calculateTotal * 0.07).toFixed(2) }}
+                    {{ formatCurrency((calculateTotal * 0.07).toFixed(2)) }}
                 </div>
             </div>
         </div>
@@ -169,7 +174,7 @@
             </div>
             <div class="col-lg-6 col-sm-6">
                 <div :class="`text-h5 w700 text-right text-${entityInfo.primaryColor}`">
-                    $ {{ (calculateTotal * 1.07).toFixed(2) }}
+                    {{ formatCurrency((calculateTotal * 1.07).toFixed(2)) }}
                 </div>
             </div>
         </div>
@@ -248,38 +253,8 @@ export default {
                         {
                             name: '',
                             description: '',
-                            price: '1500',
-                            amount: '1',
-                        },
-                        {
-                            name: '',
-                            description: '',
-                            price: '9800',
-                            amount: '1',
-                        },
-                        {
-                            name: '',
-                            description: '',
-                            price: '21',
-                            amount: '913.12',
-                        },
-                        {
-                            name: '',
-                            description: '',
-                            price: '1100',
-                            amount: '1',
-                        },
-                        {
-                            name: '',
-                            description: '',
-                            price: '9875',
-                            amount: '1',
-                        },
-                        {
-                            name: '',
-                            description: '',
-                            price: '4500',
-                            amount: '1',
+                            price: '',
+                            amount: '',
                         },
                     ],
                 }
@@ -291,6 +266,11 @@ export default {
             return moment(this.data.date)
                 .locale('es')
                 .format(format)
+        },
+        formatCurrency(money) {
+            return new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(
+                money
+            )
         },
     },
     computed: {
@@ -307,6 +287,10 @@ export default {
             }
             return total.toFixed(2)
         },
+    },
+    mounted() {
+        const number = 123456.789
+        console.log(this.formatCurrency(number))
     },
 }
 </script>
