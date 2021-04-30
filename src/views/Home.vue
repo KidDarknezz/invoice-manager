@@ -8,7 +8,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 q-pa-md">
-                        <router-link to="/quotes" style="text-decoration: none;">
+                        <router-link to="/quotes" style="text-decoration: none">
                             <div class="home-tile bg-primary q-pa-md rounded-borders shadow-3">
                                 <q-icon
                                     name="fas fa-file-alt"
@@ -16,14 +16,12 @@
                                     color="white"
                                     class="q-mb-lg"
                                 />
-                                <div class="text-h5 bb-font w700 text-white">
-                                    Cotizaciones
-                                </div>
+                                <div class="text-h5 bb-font w700 text-white">Cotizaciones</div>
                             </div>
                         </router-link>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 q-pa-md">
-                        <router-link to="/invoices" style="text-decoration: none;">
+                        <router-link to="/invoices" style="text-decoration: none">
                             <div class="home-tile bg-primary q-pa-md rounded-borders shadow-3">
                                 <q-icon
                                     name="fas fa-file-invoice-dollar"
@@ -31,14 +29,12 @@
                                     color="white"
                                     class="q-mb-lg"
                                 />
-                                <div class="text-h5 bb-font w700 text-white">
-                                    Facturas
-                                </div>
+                                <div class="text-h5 bb-font w700 text-white">Facturas</div>
                             </div>
                         </router-link>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 q-pa-md">
-                        <router-link to="/clients" style="text-decoration: none;">
+                        <router-link to="/clients" style="text-decoration: none">
                             <div class="home-tile bg-primary q-pa-md rounded-borders shadow-3">
                                 <q-icon
                                     name="fas fa-user-tag"
@@ -46,9 +42,7 @@
                                     color="white"
                                     class="q-mb-lg"
                                 />
-                                <div class="text-h5 bb-font w700 text-white">
-                                    Clientes
-                                </div>
+                                <div class="text-h5 bb-font w700 text-white">Clientes</div>
                             </div>
                         </router-link>
                     </div>
@@ -59,22 +53,18 @@
     </q-page>
 </template>
 
-<<<<<<< HEAD
 <script>
 import {mapState} from 'vuex'
 export default {
     computed: {
-        ...mapState('entities', ['logo', 'entityName']),
+        ...mapState('entities', ['logo', 'entityName', 'entityInfo']),
     },
-    mounted() {
-        console.log(`entity name:${this.entityName}`)
-        console.log(`logo:${this.logo}`)
-    },
+    // mounted() {
+    //     console.log(`entity name:${this.entityName}`)
+    //     console.log(`logo:${this.logo}`)
+    // },
 }
 </script>
-=======
-<script></script>
->>>>>>> b0f7df2... home layout update
 
 <style>
 .menu-tiles {

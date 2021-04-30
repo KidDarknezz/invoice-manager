@@ -6,6 +6,7 @@ export default {
         entities: '',
         logo: '',
         entityName: '',
+        entityInfo: {},
     },
     mutations: {
         SET_ENTITIES: (state, payload) => {
@@ -16,6 +17,9 @@ export default {
         },
         SET_ENTITYNAME: (state, payload) => {
             state.entityName = payload
+        },
+        SET_ENTITYINFO: (state, payload) => {
+            state.entityInfo = payload
         },
     },
     actions: {
@@ -32,6 +36,7 @@ export default {
                             commit('SET_ENTITIES', doc.id)
                             commit('SET_LOGO', data.logo)
                             commit('SET_ENTITYNAME', data.name)
+                            commit('SET_ENTITYINFO', {...data})
                         }
                     })
                 })
