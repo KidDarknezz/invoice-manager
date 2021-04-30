@@ -4,7 +4,7 @@
             <q-space />
             <div class="col-lg-7 col-md-9 col-sm-10 col-xs-12">
                 <div class="row q-mb-md q-px-md">
-                    <div class="text-h4 w700 text-dark">Clientes</div>
+                    <div :class="`text-h4 w700 text-${entityInfo.accentColor}`">Clientes</div>
                 </div>
                 <div class="row q-mb-md q-px-md">
                     <q-btn
@@ -15,7 +15,7 @@
                         rounded
                         size="sm"
                         to="/"
-                        color="dark"
+                        :color="entityInfo.accentColor"
                     />
                 </div>
                 <div class="row">
@@ -63,13 +63,15 @@
                         <q-form @submit="submitNewClient()">
                             <q-card>
                                 <q-card-section>
-                                    <div class="text-h6 w700 text-dark">Nuevo cliente</div>
+                                    <div :class="`text-h6 w700 text-${entityInfo.accentColor}`">
+                                        Nuevo cliente
+                                    </div>
                                 </q-card-section>
                                 <q-card-section>
                                     <q-input
                                         label="Nombre"
                                         filled
-                                        color="secondary"
+                                        :color="entityInfo.primaryColor"
                                         class="q-mb-md"
                                         v-model="newClient.name"
                                         :rules="[val => !!val || 'Campo requerido']"
@@ -77,7 +79,7 @@
                                     <q-input
                                         label="Correo"
                                         filled
-                                        color="secondary"
+                                        :color="entityInfo.primaryColor"
                                         class="q-mb-md"
                                         v-model="newClient.email"
                                         :rules="[val => !!val || 'Campo requerido']"
@@ -85,7 +87,7 @@
                                     <q-input
                                         label="Telefono"
                                         filled
-                                        color="secondary"
+                                        :color="entityInfo.primaryColor"
                                         v-model="newClient.phone"
                                         :rules="[val => !!val || 'Campo requerido']"
                                     />
@@ -95,7 +97,7 @@
                                     <q-btn
                                         label="Guardar"
                                         flat
-                                        color="dark"
+                                        :color="entityInfo.accentColor"
                                         class="w700"
                                         rounded
                                         type="submit"
@@ -151,6 +153,7 @@ export default {
     computed: {
         ...mapState('clients', ['allClients']),
         ...mapState('auth', ['user']),
+        ...mapState('entities', ['entityInfo']),
     },
     methods: {
         ...mapActions('clients', ['getClients', 'createClient']),

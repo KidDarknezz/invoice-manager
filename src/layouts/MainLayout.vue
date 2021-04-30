@@ -9,7 +9,11 @@
                             <q-img :src="logo" style="width: 35px" />
                         </div>
                         <div class="col-lg-6 col-xs-8 flex flex-center">
-                            <div class="text-h5 bb-font w700 full-width text-grey-9">
+                            <div
+                                :class="
+                                    `text-h5 bb-font w700 full-width text-${entityInfo.accentColor}`
+                                "
+                            >
                                 {{ entityInfo.name }}
                             </div>
                         </div>
@@ -20,10 +24,11 @@
                                 no-caps
                                 flat
                                 rounded
-                                class="w700 text-dark full-width"
+                                class="w700 full-width"
                                 icon="login"
                                 btn-logout-home
                                 @click="$store.dispatch('auth/logoutUser')"
+                                :color="entityInfo.accentColor"
                             />
                         </div>
                     </div>
