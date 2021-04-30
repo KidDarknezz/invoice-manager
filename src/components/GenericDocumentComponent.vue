@@ -248,8 +248,38 @@ export default {
                         {
                             name: '',
                             description: '',
-                            price: '',
-                            amount: '',
+                            price: '1500',
+                            amount: '1',
+                        },
+                        {
+                            name: '',
+                            description: '',
+                            price: '9800',
+                            amount: '1',
+                        },
+                        {
+                            name: '',
+                            description: '',
+                            price: '21',
+                            amount: '913.12',
+                        },
+                        {
+                            name: '',
+                            description: '',
+                            price: '1100',
+                            amount: '1',
+                        },
+                        {
+                            name: '',
+                            description: '',
+                            price: '9875',
+                            amount: '1',
+                        },
+                        {
+                            name: '',
+                            description: '',
+                            price: '4500',
+                            amount: '1',
                         },
                     ],
                 }
@@ -271,7 +301,7 @@ export default {
             if (this.data.items) {
                 this.data.items.forEach(item => {
                     if (item.price != '' && item.amount != '') {
-                        total += parseFloat(item.price) * parseInt(item.amount)
+                        total += parseFloat(item.price) * parseFloat(item.amount)
                     }
                 })
             }

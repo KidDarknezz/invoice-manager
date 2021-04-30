@@ -213,7 +213,7 @@ export default {
             if (this.data.items) {
                 this.data.items.forEach(item => {
                     if (item.price != '' && item.amount != '') {
-                        total += parseFloat(item.price) * parseInt(item.amount)
+                        total += parseFloat(item.price) * parseFloat(item.amount)
                     }
                 })
             }
