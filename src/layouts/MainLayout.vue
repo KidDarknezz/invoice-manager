@@ -7,15 +7,14 @@
                     <div class="row">
                         <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 flex flex-center">
                             <q-img
+                                v-if="logo"
                                 :src="require(`@/assets/entities-logos/${logo}`)"
                                 style="width: 35px"
                             />
                         </div>
                         <div class="col-lg-6 col-xs-8 flex flex-center">
                             <div
-                                :class="
-                                    `text-h5 bb-font w700 full-width text-${entityInfo.accentColor}`
-                                "
+                                :class="`text-h5 bb-font w700 full-width text-${entityInfo.accentColor}`"
                             >
                                 {{ entityInfo.name }}
                             </div>
