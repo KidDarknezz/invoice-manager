@@ -144,7 +144,7 @@
                 </div>
             </div>
         </div>
-        <q-separator class="q-my-lg bg-dark" style="height: 3px" />
+        <q-separator :class="`q-my-lg bg-${entityInfo.accentColor}`" style="height: 3px" />
         <div class="row q-mx-lg q-px-xl q-pt-lg">
             <div class="col-lg-6 col-sm-6">
                 <div class="text-h6 w700">Sub-Total:</div>
