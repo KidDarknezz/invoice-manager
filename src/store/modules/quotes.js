@@ -13,6 +13,10 @@ export default {
         SET_EXISTINGQUOTE(state, payload) {
             state.existingQuote = payload
         },
+        RESET_STATES(state) {
+            state.allQuotes = []
+            state.existingQuote = {}
+        },
     },
     actions: {
         getAllQuotes({commit, rootState}, payload) {

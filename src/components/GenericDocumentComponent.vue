@@ -34,7 +34,11 @@
                     </div>
                 </div> -->
                 <div class="col-lg-3 col-md-3 col-xs-3 flex flex-center">
-                    <q-img :src="entityInfo.logo" class="q-mb-sm" style="width: 90%;" />
+                    <q-img
+                        :src="require(`@/assets/entities-logos/${entityInfo.logo}`)"
+                        class="q-mb-sm"
+                        style="width: 90%;"
+                    />
                     <div
                         :class="`text-subtitle2 w700 text-${entityInfo.accentColor}`"
                         v-if="entityInfo.ruc"

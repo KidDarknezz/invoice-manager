@@ -2,10 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 export default {
-    state: {
-        allInvoices: [],
-        selectedQuoteToInvoice: '',
-    },
+    state: {},
     mutations: {
         SET_ALLINVOICES(state, payload) {
             state.allInvoices = payload
@@ -15,6 +12,10 @@ export default {
         },
         SET_SELECTEDQUOTETOINVOICE(state, payload) {
             state.selectedQuoteToInvoice = payload
+        },
+        RESET_STATES(state) {
+            state.allInvoices = []
+            state.selectedQuoteToInvoice = ''
         },
     },
     actions: {
