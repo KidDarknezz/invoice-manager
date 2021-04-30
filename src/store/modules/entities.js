@@ -33,6 +33,7 @@ export default {
                     querySnapshot.forEach(doc => {
                         if (doc.data()) {
                             let data = doc.data()
+                            data.id = doc.id
                             commit('SET_ENTITIES', doc.id)
                             commit('SET_LOGO', data.logo)
                             commit('SET_ENTITYNAME', data.name)

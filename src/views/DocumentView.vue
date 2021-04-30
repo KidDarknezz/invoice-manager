@@ -13,7 +13,7 @@
                             rounded
                             size="sm"
                             to="/"
-                            color="dark"
+                            :color="entityInfo.accentColor"
                         />
                     </div>
                     <q-space />
@@ -25,26 +25,31 @@
                             class="w700"
                             push
                             rounded
-                            color="primary"
+                            :color="entityInfo.primaryColor"
                             @click="generateReport()"
                             v-if="$route.params.documentId != 'new'"
                         />
                     </div>
                 </div>
-                <div class="q-pa-md">
-                    <DocumentComponent class="shadow-3" :data="documentData" v-if="hideForMobile" />
-                    <div v-else>
-                        <div
-                            class="text-h6 w700 text-right text-grey-7 q-py-md"
-                            v-if="$route.params.documentId != 'new'"
-                        >
-                            <q-icon name="arrow_upward" size="xl" />
-                            <br />
-                            ¡Documento listo <br />para descargar!
-                        </div>
-                        <div class="text-subtitle2 w700 text-right text-grey-7 q-py-md">
-                            Previsualizacion disponible solo para computadoras o iPads
-                        </div>
+                <div class="q-pa-md" v-if="hideForMobile">
+                    <DocumentComponent
+                        class="shadow-3"
+                        :data="documentData"
+                        v-if="entityInfo.id == 'SLUiKLonGGCn3xgBLkWa'"
+                    />
+                    <GenericDocumentComponent class="shadow-3" :data="documentData" v-else />
+                </div>
+                <div class="q-pa-md" v-else>
+                    <div
+                        class="text-h6 w700 text-right text-grey-7 q-py-md"
+                        v-if="$route.params.documentId != 'new'"
+                    >
+                        <q-icon name="arrow_upward" size="xl" />
+                        <br />
+                        ¡Documento listo <br />para descargar!
+                    </div>
+                    <div class="text-subtitle2 w700 text-right text-grey-7 q-py-md">
+                        Previsualizacion disponible solo para computadoras o iPads
                     </div>
                 </div>
 
@@ -63,7 +68,11 @@
                     ref="html2Pdf"
                 >
                     <section slot="pdf-content">
-                        <DocumentComponent :data="documentData" />
+                        <DocumentComponent
+                            :data="documentData"
+                            v-if="entityInfo.id == 'SLUiKLonGGCn3xgBLkWa'"
+                        />
+                        <GenericDocumentComponent :data="documentData" v-else />
                     </section>
                 </vue-html2pdf>
             </div>
@@ -78,21 +87,21 @@
                         icon-right="far fa-save"
                         size="sm"
                         rounded
-                        color="dark"
+                        :color="entityInfo.primaryColor"
                         @click="saveDocument(documentData)"
                     />
                 </div>
                 <div class="q-pa-md">
                     <q-card>
                         <q-card-section>
-                            <div class="text-h6 w700 text-dark">
+                            <div :class="`text-h6 w700 text-${entityInfo.accentColor}`">
                                 Nuevo
                             </div>
                         </q-card-section>
                         <q-card-section>
                             <q-select
-                                label="Client"
-                                color="primary"
+                                label="Cliente"
+                                :color="entityInfo.primaryColor"
                                 :options="mapClients"
                                 filled
                                 class="q-mb-md"
@@ -104,9 +113,9 @@
                             <div class="q-mb-md" v-for="(item, i) in documentData.items" :key="i">
                                 <div class="text-caption w700 q-mb-sm">Item {{ i + 1 }}</div>
                                 <q-input
-                                    label="Item name"
+                                    label="Nombre del item"
                                     filled
-                                    color="primary"
+                                    :color="entityInfo.primaryColor"
                                     class="q-mb-md"
                                     v-model="documentData.items[i].name"
                                 >
@@ -122,26 +131,26 @@
                                     </template>
                                 </q-input>
                                 <q-input
-                                    label="Item description (optional)"
+                                    label="Descripcion del item (opcional)"
                                     filled
-                                    color="primary"
+                                    :color="entityInfo.primaryColor"
                                     class="q-mb-md"
                                     v-model="documentData.items[i].description"
                                 />
                                 <div class="row">
                                     <div class="col on-left">
                                         <q-input
-                                            label="Price"
+                                            label="Precio"
                                             filled
-                                            color="primary"
+                                            :color="entityInfo.primaryColor"
                                             v-model="documentData.items[i].price"
                                         />
                                     </div>
                                     <div class="col on-right">
                                         <q-input
-                                            label="Amount"
+                                            label="Cantidad"
                                             filled
-                                            color="primary"
+                                            :color="entityInfo.primaryColor"
                                             v-model="documentData.items[i].amount"
                                         />
                                     </div>
@@ -155,7 +164,7 @@
                                     icon="add"
                                     no-caps
                                     rounded
-                                    color="primary"
+                                    :color="entityInfo.primaryColor"
                                     @click="addNewItem()"
                                 />
                             </div>
@@ -165,7 +174,7 @@
                                 rows="4"
                                 label="Notes"
                                 filled
-                                color="primary"
+                                :color="entityInfo.primaryColor"
                                 v-model="documentData.notes"
                             />
                         </q-card-section>
@@ -180,6 +189,7 @@
 <script>
 import VueHtml2pdf from 'vue-html2pdf'
 import DocumentComponent from '@/components/DocumentComponent'
+import GenericDocumentComponent from '@/components/GenericDocumentComponent'
 import {mapState, mapActions} from 'vuex'
 import {Platform} from 'quasar'
 
@@ -219,6 +229,7 @@ export default {
         ...mapState('documents', ['existingDocument', 'newInvoice', 'newQuote']),
         ...mapState('invoices', ['selectedQuoteToInvoice']),
         ...mapState('quotes', ['getQuote']),
+        ...mapState('entities', ['entityInfo']),
 
         mapClients() {
             let clients = []
@@ -288,6 +299,7 @@ export default {
     components: {
         VueHtml2pdf,
         DocumentComponent,
+        GenericDocumentComponent,
     },
 }
 </script>
