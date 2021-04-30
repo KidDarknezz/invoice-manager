@@ -1,47 +1,54 @@
 <template>
-    <div class="bg-white q-pt-lg bb-font">
-        <div class="upper-document q-mx-lg q-px-xl q-pt-xl">
+    <div class="bg-white q-pt-lg generic-font">
+        <div class="q-mx-lg q-px-xl q-pt-xl">
             <div class="row q-mb-xl">
                 <div class="col-lg-6">
                     <div
-                        class="text-h4 w700 text-dark q-mb-sm"
+                        :class="`text-h4 w700 text-${entityInfo.accentColor} q-mb-sm`"
                         v-if="this.$route.params.documentType == 'invoice'"
                     >
-                        FACTURA G
+                        FACTURA
                     </div>
                     <div
-                        class="text-h4 w700 text-dark q-mb-xs"
+                        :class="`text-h4 w700 text-${entityInfo.accentColor} q-mb-xs`"
                         v-if="this.$route.params.documentType == 'quote'"
                     >
-                        COTIZACION G
+                        COTIZACI&Oacute;N
                     </div>
                     <div class="text-subtitle2">
                         <span
-                            class="text-white bg-dark w700 text-center q-py-xs q-px-md invoice-no"
+                            :class="
+                                `text-white bg-${entityInfo.accentColor} w700 text-center q-py-xs q-px-md invoice-no`
+                            "
                         >
                             <span v-if="data.type == 'invoice'">Factura</span>
-                            <span v-if="data.type == 'quote'">Cotizacion</span>
+                            <span v-if="data.type == 'quote'">Cotizaci&oacute;n</span>
                             No. {{ data.number }}
                         </span>
                     </div>
                 </div>
                 <q-space />
-                <div class="col-lg-3 col-md-3 col-xs-3 column flex-center">
+                <!-- <div class="col-lg-3 col-md-3 col-xs-3 column flex-center">
                     <div class="text-h6 w700 text-dark text-right full-width on-left">
-                        Blue Balloon Inc.
+                        {{ entityInfo.name }}
                     </div>
-                </div>
-                <div class="col-lg-1 col-md-1 col-xs-1">
-                    <q-img
-                        :src="require('@/assets/logo_2.webp')"
-                        style="width: 50px; float: right"
-                    />
+                </div> -->
+                <div class="col-lg-3 col-md-3 col-xs-3 flex flex-center">
+                    <q-img :src="entityInfo.logo" class="q-mb-sm" style="width: 90%;" />
+                    <div
+                        :class="`text-subtitle2 w700 text-${entityInfo.accentColor}`"
+                        v-if="entityInfo.ruc"
+                    >
+                        RUC: {{ entityInfo.ruc }}
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-8 col-sm-8 col-xs-8">
-                    <div class="text-subtitle2 w700 text-secondary">CLIENTE</div>
-                    <div class="text-h6 w700 text-dark">
+                    <div :class="`text-subtitle2 w700 text-${entityInfo.secondaryColor}`">
+                        CLIENTE
+                    </div>
+                    <div :class="`text-h6 w700 text-${entityInfo.primaryColor}`">
                         {{ data.clientData ? data.clientData.name : '' }}
                     </div>
                     <div class="text-body w600">
@@ -53,8 +60,12 @@
                 </div>
                 <div class="col-lg-4 col-sm-4 col-xs-4 text-right">
                     <q-separator />
-                    <div class="text-subitle2 w700 q-mt-sm text-secondary">Balance</div>
-                    <div class="text-h6 w700 text-dark">$ {{ calculateTotal }}</div>
+                    <div :class="`text-subitle2 w700 q-mt-sm text-${entityInfo.secondaryColor}`">
+                        Balance
+                    </div>
+                    <div :class="`text-h6 w700 text-${entityInfo.accentColor}`">
+                        $ {{ calculateTotal }}
+                    </div>
                     <div class="text-subtitle2 w700">
                         {{ formatDate('dddd').toUpperCase() }}
                     </div>
@@ -66,23 +77,39 @@
             </div>
             <div class="row text-center q-mt-lg q-mb-md">
                 <div class="col-lg-5 col-sm-5 col-xs-5 q-pr-md">
-                    <div class="text-subtitle2 w700 bg-dark text-white q-py-xs table-header">
-                        DESCRIPCION
+                    <div
+                        :class="
+                            `text-subtitle2 w700 bg-${entityInfo.accentColor} text-white q-py-xs table-header`
+                        "
+                    >
+                        DESCRIPCI&Oacute;N
                     </div>
                 </div>
                 <q-space />
                 <div class="col-lg-2 col-sm-2 col-xs-2 q-px-md">
-                    <div class="text-subtitle2 w700 bg-dark text-white q-py-xs table-header">
+                    <div
+                        :class="
+                            `text-subtitle2 w700 bg-${entityInfo.accentColor} text-white q-py-xs table-header`
+                        "
+                    >
                         COSTO
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-xs-3 q-px-md">
-                    <div class="text-subtitle2 w700 bg-dark text-white q-py-xs table-header">
+                    <div
+                        :class="
+                            `text-subtitle2 w700 bg-${entityInfo.accentColor} text-white q-py-xs table-header`
+                        "
+                    >
                         CANTIDAD
                     </div>
                 </div>
                 <div class="col-lg-2 col-sm-2 col-xs-2 q-pl-md">
-                    <div class="text-subtitle2 w700 bg-secondary text-white q-py-xs table-header">
+                    <div
+                        :class="
+                            `text-subtitle2 w700 bg-${entityInfo.primaryColor} text-white q-py-xs table-header`
+                        "
+                    >
                         SUB TOTAL
                     </div>
                 </div>
@@ -118,27 +145,53 @@
             </div>
         </div>
         <q-separator class="q-my-lg bg-dark" style="height: 3px" />
-        <div class="row middle-document q-mx-lg q-px-xl q-py-lg">
+        <div class="row q-mx-lg q-px-xl q-pt-lg">
             <div class="col-lg-6 col-sm-6">
-                <div class="text-h6 w700">Total:</div>
+                <div class="text-h6 w700">Sub-Total:</div>
             </div>
             <div class="col-lg-6 col-sm-6">
                 <div class="text-h6 w700 text-right">$ {{ calculateTotal }}</div>
             </div>
         </div>
+        <div class="row q-mx-lg q-px-xl q-mb-md">
+            <div class="col-lg-6 col-sm-6">
+                <div class="text-h6 w700">ITBMS:</div>
+            </div>
+            <div class="col-lg-6 col-sm-6">
+                <div class="text-h6 w700 text-right">
+                    $ {{ (calculateTotal * 0.07).toFixed(2) }}
+                </div>
+            </div>
+        </div>
+        <div class="row q-mx-lg q-px-xl q-pb-lg">
+            <div class="col-lg-6 col-sm-6">
+                <div :class="`text-h5 w700 text-${entityInfo.primaryColor}`">TOTAL:</div>
+            </div>
+            <div class="col-lg-6 col-sm-6">
+                <div :class="`text-h5 w700 text-right text-${entityInfo.primaryColor}`">
+                    $ {{ (calculateTotal * 1.07).toFixed(2) }}
+                </div>
+            </div>
+        </div>
         <div class="bg-grey-3 q-pb-lg">
-            <div class="bottom-document q-mx-lg q-px-xl">
+            <div class="q-mx-lg q-px-xl">
                 <div class="row q-py-lg">
                     <div class="col-lg-6 col-sm-6 col-xs-6">
-                        <div class="text-subtitle2 w700 q-mb-sm">INFORMACION DE PAGO</div>
-                        <div class="text-body">
-                            <span class="w700">No. Cuenta:</span> 04-72-98-558246-9
+                        <div v-if="entityInfo.paymentInfo.length > 0">
+                            <div class="text-subtitle2 w700 q-mb-sm">
+                                INFORMACION DE PAGO
+                            </div>
+                            <div class="text-body">
+                                <span class="w700">No. Cuenta:</span> 04-72-98-558246-9
+                            </div>
+                            <div class="text-body">
+                                <span class="w700">Nombre:</span> Diego Rodriguez
+                            </div>
+                            <div class="text-body"><span class="w700">Tipo:</span> Ahorros</div>
+                            <div class="text-body">
+                                <span class="w700">Banco:</span> Banco General
+                            </div>
                         </div>
-                        <div class="text-body">
-                            <span class="w700">Nombre:</span> Diego Rodriguez
-                        </div>
-                        <div class="text-body"><span class="w700">Tipo:</span> Ahorros</div>
-                        <div class="text-body"><span class="w700">Banco:</span> Banco General</div>
                     </div>
                     <div class="col-lg-6 col-sm-6 col-xs-6">
                         <div class="text-subtitle2 w700 q-mb-sm">NOTAS:</div>
@@ -150,21 +203,23 @@
 
                 <q-separator />
                 <div class="row text-center q-py-lg">
-                    <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <q-space />
+                    <div class="col-lg-4 col-sm-4 col-xs-4" v-if="entityInfo.phone">
                         <div class="text-caption w600">
-                            <q-icon name="r_phone" /> (507) 6480-6778
+                            <q-icon name="r_phone" /> (507) {{ entityInfo.phone }}
                         </div>
                     </div>
-                    <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <div class="col-lg-4 col-sm-4 col-xs-4" v-if="entityInfo.website">
                         <div class="text-caption w600">
-                            <q-icon name="r_language" /> www.blueballoon.io
+                            <q-icon name="r_language" /> {{ entityInfo.website }}
                         </div>
                     </div>
-                    <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <div class="col-lg-4 col-sm-4 col-xs-4" v-if="entityInfo.email">
                         <div class="text-caption w600">
-                            <q-icon name="r_email" /> diego@blueballoon.io
+                            <q-icon name="r_email" /> {{ entityInfo.email }}
                         </div>
                     </div>
+                    <q-space />
                 </div>
             </div>
         </div>
@@ -173,6 +228,7 @@
 
 <script>
 import moment from 'moment'
+import {mapState} from 'vuex'
 
 export default {
     props: {
@@ -208,6 +264,8 @@ export default {
         },
     },
     computed: {
+        ...mapState('entities', ['logo', 'entityName', 'entityInfo']),
+
         calculateTotal() {
             let total = 0
             if (this.data.items) {
@@ -224,24 +282,6 @@ export default {
 </script>
 
 <style>
-.bb-font {
-    font-family: 'Nunito', sans-serif;
-}
-.upper-document {
-    border-left: 4px #43c0f6 solid;
-    border-right: 4px #43c0f6 solid;
-    border-top: 4px #43c0f6 solid;
-}
-.middle-document {
-    border-left: 4px #3f3164 solid;
-    border-right: 4px #3f3164 solid;
-}
-
-.bottom-document {
-    border-left: 4px #3f3164 solid;
-    border-right: 4px #3f3164 solid;
-    border-bottom: 4px #3f3164 solid;
-}
 .invoice-no {
     border-radius: 20px;
 }

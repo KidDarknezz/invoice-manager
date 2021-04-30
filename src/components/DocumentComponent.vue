@@ -224,9 +224,6 @@ export default {
 </script>
 
 <style>
-.bb-font {
-    font-family: 'Nunito', sans-serif;
-}
 .upper-document {
     border-left: 4px #43c0f6 solid;
     border-right: 4px #43c0f6 solid;
