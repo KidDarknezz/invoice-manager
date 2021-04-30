@@ -21,16 +21,16 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 
-// if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'testing') {
-//     firebase.auth().useEmulator('http://localhost:9099/')
-//     firebase.firestore().useEmulator('localhost', 8081)
-// }
+//comment lines bellow if you want to poing to database in production
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'testing') {
+    firebase.auth().useEmulator('http://localhost:9099/')
+    firebase.firestore().useEmulator('localhost', 8081)
+}
 
 firebase.auth().onAuthStateChanged(async user => {
     if (user) {
         await store.dispatch('entities/getEntities', user.uid)
         store.dispatch('auth/setUser', user)
-        console.log(`user loaded`)
     }
     new Vue({
         router,

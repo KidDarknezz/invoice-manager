@@ -6,11 +6,11 @@
                 <div class="col-lg-7 col-md-10 col-sm-10 q-py-sm">
                     <div class="row">
                         <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 flex flex-center">
-                            <q-img :src="require('@/assets/logo_2.webp')" style="width: 35px;" />
+                            <q-img :src="logo" style="width: 35px" />
                         </div>
                         <div class="col-lg-6 col-xs-8 flex flex-center">
                             <div class="text-h5 bb-font w700 full-width text-grey-9">
-                                Blue Balloon Inc.
+                                {{ entityInfo.name }}
                             </div>
                         </div>
                         <q-space />
@@ -34,3 +34,15 @@
         </q-page-container>
     </q-layout>
 </template>
+<script>
+import {mapState} from 'vuex'
+export default {
+    computed: {
+        ...mapState('entities', ['logo', 'entityName', 'entityInfo']),
+    },
+    // mounted() {
+    //     console.log(`entity name:${this.entityName}`)
+    //     console.log(`logo:${this.logo}`)
+    // },
+}
+</script>
