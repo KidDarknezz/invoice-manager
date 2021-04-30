@@ -6,7 +6,10 @@
                 <div class="col-lg-7 col-md-10 col-sm-10 q-py-sm">
                     <div class="row">
                         <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 flex flex-center">
-                            <q-img :src="logo" style="width: 35px" />
+                            <q-img
+                                :src="require(`@/assets/entities-logos/${logo}`)"
+                                style="width: 35px"
+                            />
                         </div>
                         <div class="col-lg-6 col-xs-8 flex flex-center">
                             <div
