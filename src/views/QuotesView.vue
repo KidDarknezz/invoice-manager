@@ -4,7 +4,7 @@
             <q-space />
             <div class="col-lg-7 col-md-9 col-sm-10 col-xs-12">
                 <div class="row q-mb-md q-px-md">
-                    <div class="text-h4 w700 text-dark">Cotizaciones</div>
+                    <div :class="`text-h4 w700 text-${entityInfo.accentColor}`">Cotizaciones</div>
                 </div>
                 <div class="row q-mb-md q-px-md">
                     <q-btn
@@ -15,7 +15,7 @@
                         rounded
                         size="sm"
                         to="/"
-                        color="dark"
+                        :color="entityInfo.accentColor"
                     />
                     <q-space />
                     <q-btn
@@ -26,7 +26,7 @@
                         rounded
                         size="sm"
                         to="/document/new/quote"
-                        color="primary"
+                        :color="entityInfo.primaryColor"
                     />
                 </div>
                 <div class="row">
@@ -114,6 +114,7 @@ export default {
     },
     computed: {
         ...mapState('quotes', ['allQuotes']),
+        ...mapState('entities', ['entityInfo']),
     },
     mounted() {
         this.getAllQuotes()

@@ -4,7 +4,7 @@
             <q-space />
             <div class="col-lg-7 col-md-9 col-sm-10 col-xs-12">
                 <div class="row q-mb-md q-px-md">
-                    <div class="text-h4 w700 text-dark">Facturas</div>
+                    <div :class="`text-h4 w700 text-${entityInfo.accentColor}`">Facturas</div>
                 </div>
                 <div class="row q-mb-md q-px-md">
                     <q-btn
@@ -15,7 +15,7 @@
                         rounded
                         size="sm"
                         to="/"
-                        color="dark"
+                        :color="entityInfo.accentColor"
                     />
                     <q-space />
                     <q-btn
@@ -26,7 +26,7 @@
                         rounded
                         size="sm"
                         to="/document/new/invoice"
-                        color="secondary"
+                        :color="entityInfo.primaryColor"
                     />
                     <q-btn
                         flat
@@ -35,7 +35,7 @@
                         icon-right="fas fa-file-invoice-dollar"
                         rounded
                         size="sm"
-                        color="primary"
+                        :color="entityInfo.secondaryColor"
                         @click="createInvoiceFromQuote()"
                     />
                 </div>
@@ -165,6 +165,7 @@ export default {
     computed: {
         ...mapState('quotes', ['allQuotes']),
         ...mapState('invoices', ['allInvoices']),
+        ...mapState('entities', ['entityInfo']),
         filterQuotes() {
             let filteredQuotes = []
             this.allQuotes.forEach(quote => {

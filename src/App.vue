@@ -36,6 +36,9 @@
 .bb-font {
     font-family: 'Nunito', sans-serif !important;
 }
+.generic-font {
+    font-family: 'Roboto', sans-serif;
+}
 .w300 {
     font-weight: 300 !important;
 }
