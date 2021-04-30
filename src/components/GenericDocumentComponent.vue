@@ -288,10 +288,6 @@ export default {
             return total.toFixed(2)
         },
     },
-    mounted() {
-        const number = 123456.789
-        console.log(this.formatCurrency(number))
-    },
 }
 </script>
 
