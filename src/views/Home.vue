@@ -10,9 +10,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 q-pa-md">
                         <router-link to="/quotes" style="text-decoration: none">
                             <div
-                                :class="
-                                    `home-tile bg-${entityInfo.primaryColor} q-pa-md rounded-borders shadow-3`
-                                "
+                                :class="`home-tile bg-${entityInfo.primaryColor} q-pa-md rounded-borders shadow-3`"
                             >
                                 <q-icon
                                     name="fas fa-file-alt"
@@ -27,9 +25,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 q-pa-md">
                         <router-link to="/invoices" style="text-decoration: none">
                             <div
-                                :class="
-                                    `home-tile bg-${entityInfo.primaryColor} q-pa-md rounded-borders shadow-3`
-                                "
+                                :class="`home-tile bg-${entityInfo.primaryColor} q-pa-md rounded-borders shadow-3`"
                             >
                                 <q-icon
                                     name="fas fa-file-invoice-dollar"
@@ -44,9 +40,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 q-pa-md">
                         <router-link to="/clients" style="text-decoration: none">
                             <div
-                                :class="
-                                    `home-tile bg-${entityInfo.primaryColor} q-pa-md rounded-borders shadow-3`
-                                "
+                                :class="`home-tile bg-${entityInfo.primaryColor} q-pa-md rounded-borders shadow-3`"
                             >
                                 <q-icon
                                     name="fas fa-user-tag"
@@ -66,10 +60,20 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 export default {
     computed: {
         ...mapState('entities', ['entityInfo']),
+    },
+    methods: {
+        ...mapActions('clients', ['getClients']),
+        ...mapActions('quotes', ['getAllQuotes']),
+        ...mapActions('invoices', ['getAllInvoices']),
+    },
+    async mounted() {
+        await this.getClients()
+        await this.getAllQuotes()
+        await this.getAllInvoices()
     },
 }
 </script>
