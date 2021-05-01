@@ -154,43 +154,43 @@
             </div>
         </div>
         <q-separator :class="`q-my-lg bg-${entityInfo.accentColor}`" style="height: 3px" />
-        <div v-if="entityInfo.collectsTaxes">
+        <template v-if="entityInfo.collectsTaxes">
             <div class="row q-mx-lg q-px-xl q-pt-lg">
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 col-xs-6">
                     <div class="text-h6 w700">Sub-Total:</div>
                 </div>
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 col-xs-6">
                     <div class="text-h6 w700 text-right">{{ formatCurrency(calculateTotal) }}</div>
                 </div>
             </div>
             <div class="row q-mx-lg q-px-xl q-mb-md">
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 col-xs-6">
                     <div class="text-h6 w700">ITBMS:</div>
                 </div>
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 col-xs-6">
                     <div class="text-h6 w700 text-right">
                         {{ formatCurrency((calculateTotal * 0.07).toFixed(2)) }}
                     </div>
                 </div>
             </div>
             <div class="row q-mx-lg q-px-xl q-pb-lg">
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 col-xs-6">
                     <div :class="`text-h5 w700 text-${entityInfo.primaryColor}`">TOTAL:</div>
                 </div>
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 col-xs-6">
                     <div :class="`text-h5 w700 text-right text-${entityInfo.primaryColor}`">
                         {{ formatCurrency((calculateTotal * 1.07).toFixed(2)) }}
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
 
         <div class="row q-mx-lg q-px-xl q-pb-lg" v-else>
-            <div class="col-lg-6 col-sm-6">
+            <div class="col-lg-6 col-sm-6 col-xs-6">
                 <div :class="`text-h5 w700 text-${entityInfo.primaryColor}`">TOTAL:</div>
             </div>
-            <div class="col-lg-6 col-sm-6">
-                <div :class="`text-h5 w700 text-right text-${entityInfo.primaryColor}`">
+            <div class="col-lg-6 col-sm-6 col-xs-6">
+                <div :class="`text-h5 w700 full-width text-right text-${entityInfo.primaryColor}`">
                     {{ formatCurrency((calculateTotal * 1).toFixed(2)) }}
                 </div>
             </div>
