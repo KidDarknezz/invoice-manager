@@ -7,7 +7,7 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 flex flex-center">
                         <q-btn
                             flat
-                            label="Atras"
+                            label="Atrás"
                             class="w700"
                             icon="fas fa-long-arrow-alt-left"
                             rounded
@@ -49,7 +49,7 @@
                         ¡Documento listo <br />para descargar!
                     </div>
                     <div class="text-subtitle2 w700 text-right text-grey-7 q-py-md">
-                        Previsualizacion disponible solo para computadoras o iPads
+                        Previsualización disponible solo para computadoras o iPads
                     </div>
                 </div>
 
@@ -94,9 +94,7 @@
                 <div class="q-pa-md">
                     <q-card>
                         <q-card-section>
-                            <div :class="`text-h6 w700 text-${entityInfo.accentColor}`">
-                                Nuevo
-                            </div>
+                            <div :class="`text-h6 w700 text-${entityInfo.accentColor}`">Nuevo</div>
                         </q-card-section>
                         <q-card-section>
                             <q-select
@@ -131,7 +129,7 @@
                                     </template>
                                 </q-input>
                                 <q-input
-                                    label="Descripcion del item (opcional)"
+                                    label="Descripción del item (opcional)"
                                     filled
                                     :color="entityInfo.primaryColor"
                                     class="q-mb-md"

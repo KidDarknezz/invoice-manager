@@ -64,16 +64,21 @@ import {mapState, mapActions} from 'vuex'
 export default {
     computed: {
         ...mapState('entities', ['entityInfo']),
+        ...mapState('auth', ['uid']),
     },
     methods: {
         ...mapActions('clients', ['getClients']),
         ...mapActions('quotes', ['getAllQuotes']),
         ...mapActions('invoices', ['getAllInvoices']),
+        ...mapActions('entities', ['getEntities']),
     },
     async mounted() {
-        await this.getClients()
-        await this.getAllQuotes()
-        await this.getAllInvoices()
+        if (this.uid) {
+            await this.getEntities(this.uid)
+            await this.getClients()
+            await this.getAllQuotes()
+            await this.getAllInvoices()
+        }
     },
 }
 </script>

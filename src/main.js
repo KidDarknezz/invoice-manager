@@ -32,9 +32,10 @@ firebase.auth().onAuthStateChanged(async user => {
         await store.dispatch('entities/getEntities', user.uid)
         store.dispatch('auth/setUser', user)
     }
-    new Vue({
-        router,
-        store,
-        render: h => h(App),
-    }).$mount('#app')
 })
+
+new Vue({
+    router,
+    store,
+    render: h => h(App),
+}).$mount('#app')

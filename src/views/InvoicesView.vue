@@ -63,7 +63,7 @@
                                         >
                                         <q-td>
                                             <q-btn-group rounded flat>
-                                                <q-btn icon="delete" size="sm" flat />
+                                                <!-- <q-btn icon="delete" size="sm" flat /> -->
                                                 <q-btn
                                                     icon="fas fa-arrow-right"
                                                     size="sm"
