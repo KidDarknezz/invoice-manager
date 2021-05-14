@@ -17,6 +17,9 @@ export default {
             state.allQuotes = []
             state.existingQuote = {}
         },
+        DELETE_QUOTE(state, payload) {
+            state.allQuotes = state.allQuotes.filter(quote => quote.id != payload)
+        },
     },
     actions: {
         getAllQuotes({commit, rootState}, payload) {
@@ -42,6 +45,19 @@ export default {
                 .then(snapshot => {
                     commit('SET_EXISTINGQUOTE', snapshot.data())
                 })
+        },
+        deleteQuote({commit}, id) {
+            console.log('entra')
+            if (confirm('Estas seguro que deseas eliminar esta cotización')) {
+                firebase
+                    .firestore()
+                    .collection('quotes')
+                    .doc(id)
+                    .delete()
+                    .then(() => {
+                        commit('DELETE_QUOTE', id)
+                    })
+            }
         },
     },
     getters: {},

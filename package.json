@@ -10,7 +10,7 @@
         "serve-emulator-no-import": "firebase emulators:start",
         "emulators-export": "firebase emulators:export ./emulators.backup",
         "firestore-export": "firestore-export --accountCredentials credentials.json --backupFile output.json",
-        "firestore-import": "export FIRESTORE_EMULATOR_HOST=0.0.0.0:8081; firestore-import --accountCredentials credentials.json --backupFile output.json",
+        "firestore-import": "cross-env FIRESTORE_EMULATOR_HOST=0.0.0.0:8081 firestore-import --accountCredentials credentials.json --backupFile output.json",
         "firebase-auth-import": "firebase auth:import users.json"
     },
     "dependencies": {
@@ -29,7 +29,8 @@
         "@vue/cli-plugin-e2e-cypress": "^4.5.12",
         "@vue/cli-plugin-router": "~4.5.12",
         "@vue/cli-plugin-vuex": "~4.5.12",
-        "@vue/cli-service": "~4.5.12",
+        "@vue/cli-service": "^4.5.13",
+        "cross-env": "^7.0.3",
         "cypress": "^7.2.0",
         "cypress-firebase": "^1.8.0",
         "firebase-admin": "^9.6.0",

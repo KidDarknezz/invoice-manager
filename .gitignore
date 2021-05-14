@@ -23,3 +23,5 @@ pnpm-debug.log*
 *.sw?
 *.log
 emulators.backup
+credentials.json
+output.json

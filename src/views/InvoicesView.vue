@@ -9,7 +9,7 @@
                 <div class="row q-mb-md q-px-md">
                     <q-btn
                         flat
-                        label="Atras"
+                        label="Atrás"
                         class="w700"
                         icon="fas fa-long-arrow-alt-left"
                         rounded
@@ -83,12 +83,12 @@
         </div>
 
         <q-dialog v-model="fromQuoteDialog">
-            <q-card class="bb-font" style="width: 700px; max-width: 99vw;">
+            <q-card class="bb-font" style="width: 700px; max-width: 99vw">
                 <q-card-section>
-                    <div class="text-h5 text-dark w700">Crear factura de cotizacion</div>
+                    <div class="text-h5 text-dark w700">Crear factura de cotización</div>
                 </q-card-section>
                 <q-card-section>
-                    <q-input label="Buscar cotizacion" filled v-model="searchQuote" autofocus />
+                    <q-input label="Buscar cotización" filled v-model="searchQuote" autofocus />
                 </q-card-section>
                 <q-card-section v-if="filterQuotes.length > 0 && searchQuote">
                     <div
@@ -175,7 +175,7 @@ export default {
         },
     },
     methods: {
-        ...mapActions('invoices', ['getAllInvoices', 'generateInvoiceFromQuote']),
+        ...mapActions('invoices', ['getAllInvoices', 'generateInvoiceFromQuote', 'deleteQuote']),
         ...mapActions('quotes', ['getAllQuotes']),
         calculateInvoiceTotal(items) {
             let total = 0
@@ -189,7 +189,6 @@ export default {
             this.getAllQuotes()
         },
     },
-
     mounted() {
         this.getAllInvoices()
     },

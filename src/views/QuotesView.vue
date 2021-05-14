@@ -9,7 +9,7 @@
                 <div class="row q-mb-md q-px-md">
                     <q-btn
                         flat
-                        label="Atras"
+                        label="Atrás"
                         class="w700"
                         icon="fas fa-long-arrow-alt-left"
                         rounded
@@ -53,7 +53,12 @@
                                         >
                                         <q-td>
                                             <q-btn-group rounded flat>
-                                                <q-btn icon="delete" size="sm" flat />
+                                                <q-btn
+                                                    icon="delete"
+                                                    size="sm"
+                                                    flat
+                                                    @click="deleteQuote(props.row.id)"
+                                                />
                                                 <q-btn
                                                     icon="fas fa-arrow-right"
                                                     size="sm"
@@ -76,7 +81,6 @@
 
 <script>
 import {mapState, mapActions} from 'vuex'
-import moment from 'moment'
 
 export default {
     data() {
@@ -103,7 +107,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions('quotes', ['getAllQuotes']),
+        ...mapActions('quotes', ['getAllQuotes', 'deleteQuote']),
         calculateInvoiceTotal(items) {
             let total = 0
             items.forEach(item => {
