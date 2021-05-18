@@ -39,18 +39,8 @@
                     />
                     <GenericDocumentComponent class="shadow-3" :data="documentData" v-else />
                 </div>
-                <div class="q-pa-md" v-else>
-                    <div
-                        class="text-h6 w700 text-right text-grey-7 q-py-md"
-                        v-if="$route.params.documentId != 'new'"
-                    >
-                        <q-icon name="arrow_upward" size="xl" />
-                        <br />
-                        ¡Documento listo <br />para descargar!
-                    </div>
-                    <div class="text-subtitle2 w700 text-right text-grey-7 q-py-md">
-                        Previsualización disponible solo para computadoras o iPads
-                    </div>
+                <div class="q-px-md" v-else>
+                    <MobileDocumentPreview :data="documentData" v-if="documentData.number" />
                 </div>
 
                 <vue-html2pdf
@@ -188,6 +178,7 @@
 import VueHtml2pdf from 'vue-html2pdf'
 import DocumentComponent from '@/components/DocumentComponent'
 import GenericDocumentComponent from '@/components/GenericDocumentComponent'
+import MobileDocumentPreview from '@/components/MobileDocumentPreview'
 import {mapState, mapActions} from 'vuex'
 import {Platform} from 'quasar'
 
@@ -298,6 +289,7 @@ export default {
         VueHtml2pdf,
         DocumentComponent,
         GenericDocumentComponent,
+        MobileDocumentPreview,
     },
 }
 </script>
