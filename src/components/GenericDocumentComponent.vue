@@ -17,9 +17,7 @@
                     </div>
                     <div class="text-subtitle2">
                         <span
-                            :class="
-                                `text-white bg-${entityInfo.accentColor} w700 text-center q-py-xs q-px-md invoice-no`
-                            "
+                            :class="`text-white bg-${entityInfo.accentColor} w700 text-center q-py-xs q-px-md invoice-no`"
                         >
                             <span v-if="data.type == 'invoice'">Factura</span>
                             <span v-if="data.type == 'quote'">Cotizaci&oacute;n</span>
@@ -37,7 +35,7 @@
                     <q-img
                         :src="require(`@/assets/entities-logos/${entityInfo.logo}`)"
                         class="q-mb-sm"
-                        style="width: 90%;"
+                        style="width: 90%"
                     />
                     <div
                         :class="`text-subtitle2 w700 text-${entityInfo.accentColor}`"
@@ -68,7 +66,8 @@
                         Balance
                     </div>
                     <div :class="`text-h6 w700 text-${entityInfo.accentColor}`">
-                        {{ formatCurrency(calculateTotal) }}
+                        <!-- {{ formatCurrency(calculateTotal) }} -->
+                        {{ calculateTotal }}
                     </div>
                     <div class="text-subtitle2 w700">
                         {{ formatDate('dddd').toUpperCase() }}
@@ -82,9 +81,7 @@
             <div class="row text-center q-mt-lg q-mb-md">
                 <div class="col-lg-5 col-sm-5 col-xs-5 q-pr-md">
                     <div
-                        :class="
-                            `text-subtitle2 w700 bg-${entityInfo.accentColor} text-white q-py-xs table-header`
-                        "
+                        :class="`text-subtitle2 w700 bg-${entityInfo.accentColor} text-white q-py-xs table-header`"
                     >
                         DESCRIPCI&Oacute;N
                     </div>
@@ -92,27 +89,21 @@
                 <q-space />
                 <div class="col-lg-2 col-sm-2 col-xs-2 q-px-md">
                     <div
-                        :class="
-                            `text-subtitle2 w700 bg-${entityInfo.accentColor} text-white q-py-xs table-header`
-                        "
+                        :class="`text-subtitle2 w700 bg-${entityInfo.accentColor} text-white q-py-xs table-header`"
                     >
                         COSTO
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-xs-3 q-px-md">
                     <div
-                        :class="
-                            `text-subtitle2 w700 bg-${entityInfo.accentColor} text-white q-py-xs table-header`
-                        "
+                        :class="`text-subtitle2 w700 bg-${entityInfo.accentColor} text-white q-py-xs table-header`"
                     >
                         CANTIDAD
                     </div>
                 </div>
                 <div class="col-lg-2 col-sm-2 col-xs-2 q-pl-md">
                     <div
-                        :class="
-                            `text-subtitle2 w700 bg-${entityInfo.primaryColor} text-white q-py-xs table-header`
-                        "
+                        :class="`text-subtitle2 w700 bg-${entityInfo.primaryColor} text-white q-py-xs table-header`"
                     >
                         SUB TOTAL
                     </div>
@@ -128,27 +119,17 @@
                 <q-space />
                 <div class="col-lg-2 col-sm-2 col-xs-2 text-center">
                     <div class="text-subtitle2">
-                        {{
-                            item.price == ''
-                                ? ''
-                                : formatCurrency(parseFloat(item.price).toFixed(2))
-                        }}
+                        {{ formatCurrency(item.price) }}
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-xs-3 text-center">
                     <div class="text-subtitle2">
-                        {{ item.price == '' ? '' : item.amount }}
+                        {{ item.amount }}
                     </div>
                 </div>
                 <div class="col-lg-2 col-sm-2 col-xs-2 text-center">
                     <div class="text-subtitle2">
-                        {{
-                            item.price == ''
-                                ? ''
-                                : formatCurrency(
-                                      (parseFloat(item.price) * parseFloat(item.amount)).toFixed(2)
-                                  )
-                        }}
+                        {{ formatCurrency(item.price, item.amount) }}
                     </div>
                 </div>
             </div>
@@ -191,7 +172,8 @@
             </div>
             <div class="col-lg-6 col-sm-6 col-xs-6">
                 <div :class="`text-h5 w700 full-width text-right text-${entityInfo.primaryColor}`">
-                    {{ formatCurrency((calculateTotal * 1).toFixed(2)) }}
+                    <!-- {{ formatCurrency((calculateTotal * 1).toFixed(2)) }} -->
+                    {{ (calculateTotal * 1).toFixed(2) }}
                 </div>
             </div>
         </div>
@@ -200,9 +182,7 @@
                 <div class="row q-py-lg">
                     <div class="col-lg-6 col-sm-6 col-xs-6">
                         <div v-if="entityInfo.paymentInfo.length > 0">
-                            <div class="text-subtitle2 w700 q-mb-sm">
-                                INFORMACION DE PAGO
-                            </div>
+                            <div class="text-subtitle2 w700 q-mb-sm">INFORMACION DE PAGO</div>
                             <div
                                 class="text-body"
                                 v-for="(payInfo, i) in entityInfo.paymentInfo"
@@ -280,14 +260,16 @@ export default {
     },
     methods: {
         formatDate(format) {
-            return moment(this.data.date)
-                .locale('es')
-                .format(format)
+            return moment(this.data.date).locale('es').format(format)
         },
-        formatCurrency(money) {
-            return new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(
-                money
-            )
+        formatCurrency(money, amount = null) {
+            if (typeof money === 'string') money = money.replace(',', '')
+            if (amount) money = parseFloat(money) * parseFloat(amount)
+            let formatedMoney = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+            }).format(money)
+            return formatedMoney
         },
     },
     computed: {

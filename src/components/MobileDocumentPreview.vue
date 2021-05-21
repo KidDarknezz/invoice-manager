@@ -41,13 +41,7 @@
             </div>
             <div class="col-xs-3">
                 <div class="text-subtitle2 w700 text-right">
-                    {{
-                        item.amount && item.price
-                            ? formatCurrency(
-                                  (parseFloat(item.price) * parseFloat(item.amount)).toFixed(2)
-                              )
-                            : '-'
-                    }}
+                    {{ item.amount && item.price ? formatCurrency(item.price, item.amount) : '-' }}
                 </div>
             </div>
         </div>
@@ -90,14 +84,16 @@ export default {
     props: ['data'],
     methods: {
         formatDate(format) {
-            return moment(this.data.date)
-                .locale('es')
-                .format(format)
+            return moment(this.data.date).locale('es').format(format)
         },
-        formatCurrency(money) {
-            return new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(
-                money
-            )
+        formatCurrency(money, amount = null) {
+            if (typeof money === 'string') money = money.replace(',', '')
+            if (amount) money = parseFloat(money) * parseFloat(amount)
+            let formatedMoney = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+            }).format(money)
+            return formatedMoney
         },
     },
     computed: {
