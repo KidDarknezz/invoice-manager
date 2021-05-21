@@ -279,9 +279,7 @@ export default {
             let total = 0
             if (this.data.items) {
                 this.data.items.forEach(item => {
-                    if (item.price != '' && item.amount != '') {
-                        total += parseFloat(item.price) * parseFloat(item.amount)
-                    }
+                    total += parseFloat(item.price.replace(',', '')) * parseFloat(item.amount)
                 })
             }
             return total.toFixed(2)

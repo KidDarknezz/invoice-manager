@@ -202,9 +202,7 @@ export default {
     },
     methods: {
         formatDate(format) {
-            return moment(this.data.date)
-                .locale('es')
-                .format(format)
+            return moment(this.data.date).locale('es').format(format)
         },
     },
     computed: {
@@ -213,7 +211,7 @@ export default {
             if (this.data.items) {
                 this.data.items.forEach(item => {
                     if (item.price != '' && item.amount != '') {
-                        total += parseFloat(item.price) * parseFloat(item.amount)
+                        total += parseFloat(item.price.replace(',', '')) * parseFloat(item.amount)
                     }
                 })
             }
