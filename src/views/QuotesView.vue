@@ -111,7 +111,7 @@ export default {
         calculateInvoiceTotal(items) {
             let total = 0
             items.forEach(item => {
-                total += parseFloat(item.amount) * parseFloat(item.price)
+                total += parseFloat(item.price.replace(',', '')) * parseFloat(item.amount)
             })
             return total.toFixed(2)
         },
