@@ -66,8 +66,7 @@
                         Balance
                     </div>
                     <div :class="`text-h6 w700 text-${entityInfo.accentColor}`">
-                        <!-- {{ formatCurrency(calculateTotal) }} -->
-                        {{ calculateTotal }}
+                        {{ formatCurrency(calculateTotal) }}
                     </div>
                     <div class="text-subtitle2 w700">
                         {{ formatDate('dddd').toUpperCase() }}
