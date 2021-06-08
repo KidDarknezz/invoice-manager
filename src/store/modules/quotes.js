@@ -41,6 +41,7 @@ export default {
                 .firestore()
                 .collection('quotes')
                 .doc(payload)
+                .orderBy('number', 'desc')
                 .get()
                 .then(snapshot => {
                     commit('SET_EXISTINGQUOTE', snapshot.data())
