@@ -38,7 +38,7 @@
                                 :columns="columns"
                                 row-key="name"
                                 binary-state-sort
-                                :pagination="{rowsPerPage: 15}"
+                                :pagination="initialPagination"
                             >
                                 <template v-slot:body="props">
                                     <q-tr :props="props">
@@ -85,6 +85,11 @@ import {mapState, mapActions} from 'vuex'
 export default {
     data() {
         return {
+            initialPagination: {
+                sortBy: 'number',
+                descending: true,
+                rowsPerPage: 15,
+            },
             columns: [
                 {
                     name: 'number',
