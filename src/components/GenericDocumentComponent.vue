@@ -171,8 +171,8 @@
             </div>
             <div class="col-lg-6 col-sm-6 col-xs-6">
                 <div :class="`text-h5 w700 full-width text-right text-${entityInfo.primaryColor}`">
-                    <!-- {{ formatCurrency((calculateTotal * 1).toFixed(2)) }} -->
-                    {{ (calculateTotal * 1).toFixed(2) }}
+                    {{ formatCurrency((calculateTotal * 1).toFixed(2)) }}
+                    <!-- {{ (calculateTotal * 1).toFixed(2) }} -->
                 </div>
             </div>
         </div>
@@ -181,7 +181,7 @@
                 <div class="row q-py-lg">
                     <div class="col-lg-6 col-sm-6 col-xs-6">
                         <div v-if="entityInfo.paymentInfo.length > 0">
-                            <div class="text-subtitle2 w700 q-mb-sm">INFORMACION DE PAGO</div>
+                            <div class="text-subtitle2 w700 q-mb-sm">INFORMACIÓN DE PAGO</div>
                             <div
                                 class="text-body"
                                 v-for="(payInfo, i) in entityInfo.paymentInfo"
