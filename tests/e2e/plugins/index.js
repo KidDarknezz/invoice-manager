@@ -27,6 +27,13 @@ module.exports = (on, config) => {
 // const admin = require('firebase-admin')
 // const cypressFirebasePlugin = require('cypress-firebase').plugin
 
+// var serviceAccount = require('./credentials.json')
+
+// admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount),
+//     databaseURL: 'https://tareax-bfce8.firebaseio.com',
+// })
+
 // module.exports = (on, config) => {
 //     const extendedConfig = cypressFirebasePlugin(on, config, admin)
 
