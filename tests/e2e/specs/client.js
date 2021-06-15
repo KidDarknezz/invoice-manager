@@ -4,6 +4,7 @@ let listingCount
 
 describe('manage Clients', () => {
     before(() => {
+        cy.populateUsers()
         const {email, password} = authUser
         cy.visit('http://localhost:8080/')
         cy.logout()

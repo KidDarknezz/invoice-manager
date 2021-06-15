@@ -40,5 +40,31 @@ const fbConfig = {
 }
 
 firebase.initializeApp(fbConfig)
+firebase.auth().useEmulator('http://localhost:9099/')
+firebase.firestore().useEmulator('localhost', 8081)
 
+Cypress.Commands.add('populateUsers', async () => {
+    const users = [
+        //Admins
+        {
+            uid: 'IJS9L5gF2wfzUZ0eFq7AOHChXHl1',
+            email: 'alejandro@blueballoon.io',
+            password: 'BlueBalloon123!',
+            emailVerified: true,
+        },
+        {
+            uid: '1foD4w5ODOOi8sTVkmaATxxIDIP2',
+            email: 'diego@blueballoon.io',
+            password: 'BlueBalloon123!',
+            emailVerified: true,
+        },
+        {
+            uid: 'kJSROjSWgff38eDmZKg23yhgXpW2',
+            email: 'rpinto@rm-servicios.com',
+            password: 'BlueBalloon123!',
+            emailVerified: true,
+        },
+    ]
+    console.log(firebase.auth())
+})
 attachCustomCommands({Cypress, cy, firebase})

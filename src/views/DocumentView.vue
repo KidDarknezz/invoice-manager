@@ -12,6 +12,7 @@
                             icon="fas fa-long-arrow-alt-left"
                             rounded
                             size="sm"
+                            btn-goback-document
                             to="/"
                             :color="entityInfo.accentColor"
                         />
@@ -74,6 +75,7 @@
                         no-caps
                         label="Guardar"
                         class="w700"
+                        button-savedocument-document
                         icon-right="far fa-save"
                         size="sm"
                         rounded
@@ -92,6 +94,7 @@
                                 :color="entityInfo.primaryColor"
                                 :options="mapClients"
                                 filled
+                                select-client-document
                                 class="q-mb-md"
                                 v-model="documentData.clientData"
                                 map-options
@@ -105,6 +108,7 @@
                                     filled
                                     :color="entityInfo.primaryColor"
                                     class="q-mb-md"
+                                    :input-name-document="i"
                                     v-model="documentData.items[i].name"
                                 >
                                     <template v-slot:after>
@@ -114,6 +118,7 @@
                                             flat
                                             icon="delete"
                                             @click="removeItem(i)"
+                                            :button-deleteitem-document="i"
                                             :disable="documentData.items.length > 1 ? false : true"
                                         />
                                     </template>
@@ -124,6 +129,7 @@
                                     :color="entityInfo.primaryColor"
                                     class="q-mb-md"
                                     v-model="documentData.items[i].description"
+                                    :input-desc-document="i"
                                 />
                                 <div class="row">
                                     <div class="col on-left">
@@ -132,6 +138,7 @@
                                             filled
                                             :color="entityInfo.primaryColor"
                                             v-model="documentData.items[i].price"
+                                            :input-price-document="i"
                                         />
                                     </div>
                                     <div class="col on-right">
@@ -140,6 +147,7 @@
                                             filled
                                             :color="entityInfo.primaryColor"
                                             v-model="documentData.items[i].amount"
+                                            :input-amount-document="i"
                                         />
                                     </div>
                                 </div>
@@ -152,6 +160,7 @@
                                     icon="add"
                                     no-caps
                                     rounded
+                                    button-newitem-document
                                     :color="entityInfo.primaryColor"
                                     @click="addNewItem()"
                                 />

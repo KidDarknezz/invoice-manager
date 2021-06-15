@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-lg-8 col-sm-8 col-xs-8">
                     <div class="text-subtitle2 w700 text-secondary">CLIENTE</div>
-                    <div class="text-h6 w700 text-dark">
+                    <div div-clientname-document class="text-h6 w700 text-dark">
                         {{ data.clientData ? data.clientData.name : '' }}
                     </div>
                     <div class="text-body w600">
@@ -54,7 +54,9 @@
                 <div class="col-lg-4 col-sm-4 col-xs-4 text-right">
                     <q-separator />
                     <div class="text-subitle2 w700 q-mt-sm text-secondary">Balance</div>
-                    <div class="text-h6 w700 text-dark">$ {{ calculateTotal }}</div>
+                    <div div-quotebalance-document class="text-h6 w700 text-dark">
+                        $ {{ calculateTotal }}
+                    </div>
                     <div class="text-subtitle2 w700">
                         {{ formatDate('dddd').toUpperCase() }}
                     </div>
@@ -89,24 +91,24 @@
             </div>
             <div class="row q-mb-sm" v-for="(item, i) in data.items" :key="i">
                 <div class="col-lg-5 col-sm-5 col-xs-5">
-                    <div class="text-subtitle2 w700">
+                    <div :div-name-document="i" class="text-subtitle2 w700">
                         {{ item.name.toUpperCase() }}
                     </div>
-                    <div class="text-body">{{ item.description }}</div>
+                    <div :div-desc-document="i" class="text-body">{{ item.description }}</div>
                 </div>
                 <q-space />
                 <div class="col-lg-2 col-sm-2 col-xs-2 text-center">
-                    <div class="text-subtitle2">
+                    <div class="text-subtitle2" :div-price-document="i">
                         $ {{ item.price == '' ? '' : parseFloat(item.price).toFixed(2) }}
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-3 col-xs-3 text-center">
-                    <div class="text-subtitle2">
+                    <div class="text-subtitle2" :div-amount-document="i">
                         {{ item.price == '' ? '' : item.amount }}
                     </div>
                 </div>
                 <div class="col-lg-2 col-sm-2 col-xs-2 text-center">
-                    <div class="text-subtitle2">
+                    <div class="text-subtitle2" :div-subtotal-document="i">
                         $
                         {{
                             item.price == ''
@@ -123,7 +125,7 @@
                 <div class="text-h6 w700">Total:</div>
             </div>
             <div class="col-lg-6 col-sm-6">
-                <div class="text-h6 w700 text-right">$ {{ calculateTotal }}</div>
+                <div div-total-document class="text-h6 w700 text-right">$ {{ calculateTotal }}</div>
             </div>
         </div>
         <div class="bg-grey-3 q-pb-lg">
@@ -142,7 +144,7 @@
                     </div>
                     <div class="col-lg-6 col-sm-6 col-xs-6">
                         <div class="text-subtitle2 w700 q-mb-sm">NOTAS:</div>
-                        <div class="text-body">
+                        <div class="text-body" div-notes-document>
                             {{ data.notes }}
                         </div>
                     </div>

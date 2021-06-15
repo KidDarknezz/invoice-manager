@@ -22,6 +22,7 @@
                         flat
                         label="Nuevo"
                         class="w700"
+                        button-new-quote
                         icon-right="far fa-file"
                         rounded
                         size="sm"
