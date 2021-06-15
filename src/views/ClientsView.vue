@@ -30,7 +30,7 @@
                                 :pagination="{rowsPerPage: 15}"
                             >
                                 <template v-slot:body="props">
-                                    <q-tr :props="props">
+                                    <q-tr :props="props" :rowName="props.row.name">
                                         <q-td key="name" :props="props">{{ props.row.name }}</q-td>
                                         <q-td key="email" :props="props">{{
                                             props.row.email
@@ -45,6 +45,7 @@
                                                     icon="delete"
                                                     size="sm"
                                                     flat
+                                                    :delete-button="props.row.name"
                                                     @click="
                                                         $store.dispatch(
                                                             'clients/deleteClient',
