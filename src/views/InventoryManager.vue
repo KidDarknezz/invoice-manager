@@ -25,7 +25,7 @@
                         icon-right="fas fa-cogs"
                         rounded
                         size="sm"
-                        to="/document/new/quote"
+                        @click="configDialog = true"
                         :color="entityInfo.primaryColor"
                     />
                 </div>
@@ -119,6 +119,46 @@
             </div>
             <q-space />
         </div>
+        <q-dialog v-model="configDialog">
+            <q-card style="width: 700px; max-width: 80vw;">
+                <q-card-section>
+                    <div :class="`text-h6 bb-font w700 text-${entityInfo.accentColor}`">
+                        Configuracion de inventario
+                    </div>
+                </q-card-section>
+                <q-card-section>
+                    <div class="row">
+                        <div class="col q-px-sm">
+                            <q-input label="Nombre" filled />
+                        </div>
+                        <div class="col q-px-sm">
+                            <q-select label="Tipo" :options="['Texto', 'Numerico']" filled />
+                        </div>
+                        <div class="flex flex-center">
+                            <q-btn icon="delete" round flat color="red-5" size="sm" />
+                        </div>
+                    </div>
+                </q-card-section>
+                <q-card-actions align="right">
+                    <q-btn label="Guardar" rounded flat color="green-5" size="sm" />
+                    <q-btn
+                        label="Agregar campo"
+                        rounded
+                        flat
+                        :color="entityInfo.secondaryColor"
+                        size="sm"
+                    />
+                    <q-btn
+                        label="Cerrar"
+                        rounded
+                        flat
+                        :color="entityInfo.primaryColor"
+                        size="sm"
+                        v-close-popup
+                    />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
     </q-page>
 </template>
 
@@ -128,6 +168,7 @@ import {mapState, mapActions} from 'vuex'
 export default {
     data() {
         return {
+            configDialog: false,
             newItem: {
                 ean: '',
                 name: '',
