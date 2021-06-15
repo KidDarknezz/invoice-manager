@@ -10,6 +10,7 @@ import QuotesView from '@/views/QuotesView'
 import InvoicesView from '@/views/InvoicesView'
 import ClientsView from '@/views/ClientsView'
 import DocumentView from '@/views/DocumentView'
+import InventoryManager from '@/views/InventoryManager'
 
 import firebase from 'firebase/app'
 import 'firebase/firebase-auth'
@@ -68,6 +69,14 @@ const routes = [
                 path: '/clients',
                 name: 'ClientsView',
                 component: ClientsView,
+                meta: {
+                    requiresAuth: true,
+                },
+            },
+            {
+                path: '/inventory',
+                name: 'InventoryManager',
+                component: InventoryManager,
                 meta: {
                     requiresAuth: true,
                 },

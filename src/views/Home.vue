@@ -10,7 +10,9 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 q-pa-md">
                         <router-link to="/quotes" style="text-decoration: none">
                             <div
-                                :class="`home-tile bg-${entityInfo.primaryColor} q-pa-md rounded-borders shadow-3`"
+                                :class="
+                                    `home-tile bg-${entityInfo.primaryColor} q-pa-md rounded-borders shadow-3`
+                                "
                             >
                                 <q-icon
                                     name="fas fa-file-alt"
@@ -25,7 +27,9 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 q-pa-md">
                         <router-link to="/invoices" style="text-decoration: none">
                             <div
-                                :class="`home-tile bg-${entityInfo.primaryColor} q-pa-md rounded-borders shadow-3`"
+                                :class="
+                                    `home-tile bg-${entityInfo.primaryColor} q-pa-md rounded-borders shadow-3`
+                                "
                             >
                                 <q-icon
                                     name="fas fa-file-invoice-dollar"
@@ -40,7 +44,9 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 q-pa-md">
                         <router-link to="/clients" style="text-decoration: none">
                             <div
-                                :class="`home-tile bg-${entityInfo.primaryColor} q-pa-md rounded-borders shadow-3`"
+                                :class="
+                                    `home-tile bg-${entityInfo.primaryColor} q-pa-md rounded-borders shadow-3`
+                                "
                             >
                                 <q-icon
                                     name="fas fa-user-tag"
@@ -49,6 +55,23 @@
                                     class="q-mb-lg"
                                 />
                                 <div class="text-h5 bb-font w700 text-white">Clientes</div>
+                            </div>
+                        </router-link>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 q-pa-md">
+                        <router-link to="/inventory" style="text-decoration: none">
+                            <div
+                                :class="
+                                    `home-tile bg-${entityInfo.primaryColor} q-pa-md rounded-borders shadow-3`
+                                "
+                            >
+                                <q-icon
+                                    name="fas fa-boxes"
+                                    size="xl"
+                                    color="white"
+                                    class="q-mb-lg"
+                                />
+                                <div class="text-h5 bb-font w700 text-white">Inventario</div>
                             </div>
                         </router-link>
                     </div>
