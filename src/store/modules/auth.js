@@ -25,9 +25,10 @@ export default {
             firebase
                 .auth()
                 .signInWithEmailAndPassword(payload.email, payload.password)
-                .then(credentials => {
-                    commit('SET_UID', credentials.uid)
-                    commit('SET_USER', credentials)
+                .then(async credentials => {
+                    await commit('SET_UID', credentials.uid)
+                    await commit('SET_USER', credentials)
+                    await dispatch('entities/getEntities', credentials.uid, {root: true})
                     router.replace('/')
                 })
                 .catch(err => {

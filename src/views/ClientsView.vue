@@ -73,6 +73,7 @@
                                         filled
                                         :color="entityInfo.primaryColor"
                                         class="q-mb-md"
+                                        input-companyName-clients
                                         v-model="newClient.name"
                                         :rules="[val => !!val || 'Campo requerido']"
                                     />
@@ -81,6 +82,7 @@
                                         filled
                                         :color="entityInfo.primaryColor"
                                         class="q-mb-md"
+                                        input-companyEmail-clients
                                         v-model="newClient.email"
                                         :rules="[val => !!val || 'Campo requerido']"
                                     />
@@ -88,6 +90,7 @@
                                         label="Telefono"
                                         filled
                                         :color="entityInfo.primaryColor"
+                                        input-companyPhone-clients
                                         v-model="newClient.phone"
                                         :rules="[val => !!val || 'Campo requerido']"
                                     />
@@ -100,6 +103,7 @@
                                         :color="entityInfo.accentColor"
                                         class="w700"
                                         rounded
+                                        btn-company-clients
                                         type="submit"
                                     />
                                 </q-card-actions>
@@ -153,7 +157,7 @@ export default {
     computed: {
         ...mapState('clients', ['allClients']),
         ...mapState('auth', ['user']),
-        ...mapState('entities', ['entityInfo']),
+        ...mapState('entities', ['entityInfo', 'entities']),
     },
     methods: {
         ...mapActions('clients', ['getClients', 'createClient']),
@@ -170,7 +174,7 @@ export default {
     },
 
     mounted() {
-        this.getClients()
+        if (this.allClients.length <= 0) this.getClients()
     },
 }
 </script>

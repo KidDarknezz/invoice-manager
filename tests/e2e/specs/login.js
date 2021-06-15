@@ -7,7 +7,7 @@ describe('manage user Login', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080/')
     })
-    it('Should lo in with email and password and then log out', () => {
+    it('Should log in with email and password and then log out', () => {
         const {email, password} = authUser
         cy.get('[input-email-login]').type(email)
         cy.get('[input-password-login]').type(password)

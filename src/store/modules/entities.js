@@ -29,11 +29,11 @@ export default {
         },
     },
     actions: {
-        async getEntities({commit, dispatch}, payload) {
+        async getEntities({commit}, uid = null) {
             await firebase
                 .firestore()
                 .collection('entities')
-                .where('members', 'array-contains', payload)
+                .where('members', 'array-contains', uid)
                 .get()
                 .then(querySnapshot => {
                     querySnapshot.forEach(doc => {
