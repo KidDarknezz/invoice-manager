@@ -52,6 +52,17 @@ export default {
                         .update({lastQuote: payload.number})
                 }
                 payload.entities = rootState.entities.entities
+                if (payload.edit) {
+                    firebase
+                        .firestore()
+                        .collection('quotes')
+                        .doc(payload.id)
+                        .update(payload)
+                        .then(resp => {
+                            router.push(`/document/${payload.id}/${payload.type}`)
+                        })
+                    return
+                }
                 firebase
                     .firestore()
                     .collection(`${payload.type}s`)
