@@ -49,7 +49,7 @@ const routes = [
                 },
             },
             {
-                path: '/document/:documentId/:documentType',
+                path: '/document/:documentId/:documentType/:edit?',
                 name: 'DocumentView',
                 component: DocumentView,
                 meta: {

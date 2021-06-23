@@ -60,6 +60,12 @@
                                                     @click="deleteQuote(props.row.id)"
                                                 />
                                                 <q-btn
+                                                    icon="fas fa-edit"
+                                                    size="sm"
+                                                    flat
+                                                    :to="`/document/${props.row.id}/quote/edit`"
+                                                />
+                                                <q-btn
                                                     icon="fas fa-arrow-right"
                                                     size="sm"
                                                     flat

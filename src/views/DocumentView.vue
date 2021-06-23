@@ -27,7 +27,9 @@
                             rounded
                             :color="entityInfo.primaryColor"
                             @click="generateReport()"
-                            v-if="$route.params.documentId != 'new'"
+                            v-if="
+                                $route.params.documentId != 'new' || $route.params.edit === 'edit'
+                            "
                         />
                     </div>
                 </div>
@@ -66,7 +68,10 @@
                     </section>
                 </vue-html2pdf>
             </div>
-            <div class="col-lg-4" v-if="$route.params.documentId == 'new'">
+            <div
+                class="col-lg-4"
+                v-if="$route.params.documentId == 'new' || $route.params.edit === 'edit'"
+            >
                 <div class="row q-my-lg q-px-md">
                     <q-space />
                     <q-btn
@@ -260,7 +265,7 @@ export default {
                     ],
                     notes: '',
                 }
-            }, 500)
+            }, 1000)
         } else if (this.selectedQuoteToInvoice) {
             this.getDocument({
                 id: this.selectedQuoteToInvoice,
@@ -271,7 +276,8 @@ export default {
                 this.documentData.number = this.returnDocumentNumber
                 this.documentData.type = 'invoice'
                 this.documentData.date = Date.now()
-            }, 500)
+                this.documentData.id = this.$route.params.documentId
+            }, 1000)
         } else {
             this.getDocument({
                 id: this.$route.params.documentId,
@@ -279,7 +285,9 @@ export default {
             })
             setTimeout(() => {
                 this.documentData = this.existingDocument
-            }, 500)
+                this.documentData.id = this.$route.params.documentId
+                this.$route.params.edit === 'edit' ? (this.documentData.edit = true) : null
+            }, 1000)
         }
     },
     beforeDestroy() {
