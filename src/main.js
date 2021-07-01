@@ -22,10 +22,10 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 // comment lines bellow if you want to point to database in production
-// if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'testing') {
-//     firebase.auth().useEmulator('http://localhost:9099/')
-//     firebase.firestore().useEmulator('localhost', 8081)
-// }
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'testing') {
+    firebase.auth().useEmulator('http://localhost:9099/')
+    firebase.firestore().useEmulator('localhost', 8081)
+}
 
 firebase.auth().onAuthStateChanged(async user => {
     if (user) {

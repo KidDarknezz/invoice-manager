@@ -287,6 +287,9 @@ export default {
                 this.documentData = this.existingDocument
                 this.documentData.id = this.$route.params.documentId
                 this.$route.params.edit === 'edit' ? (this.documentData.edit = true) : null
+                this.documentData.date = this.documentData.edit
+                    ? Date.now()
+                    : this.documentData.date
             }, 1000)
         }
     },
