@@ -48,8 +48,26 @@
                                         <q-td key="client" :props="props">{{
                                             props.row.clientData.name
                                         }}</q-td>
-                                        <q-td key="total"
-                                            >$ {{ calculateInvoiceTotal(props.row.items) }}</q-td
+                                        <q-td key="monto">
+                                            {{
+                                                formatCurrency(
+                                                    calculateInvoiceTotal(props.row.items)
+                                                )
+                                            }}</q-td
+                                        >
+                                        <q-td key="ibms" v-if="entityInfo.collectsTaxes">
+                                            {{
+                                                formatCurrency(
+                                                    calculateInvoiceTotal(props.row.items) * 0.07
+                                                )
+                                            }}</q-td
+                                        >
+                                        <q-td key="total" v-if="entityInfo.collectsTaxes">
+                                            {{
+                                                formatCurrency(
+                                                    calculateInvoiceTotal(props.row.items) * 1.07
+                                                )
+                                            }}</q-td
                                         >
                                         <q-td>
                                             <q-btn-group rounded flat>
@@ -112,8 +130,6 @@ export default {
                     sortable: true,
                     align: 'left',
                 },
-                {name: 'total', label: 'Total', align: 'left'},
-                {name: 'actions', label: 'Acciones', align: 'left'},
             ],
         }
     },
@@ -126,6 +142,15 @@ export default {
             })
             return total.toFixed(2)
         },
+        formatCurrency(money, amount = null) {
+            if (typeof money === 'string') money = money.replace(',', '')
+            if (amount) money = parseFloat(money) * parseFloat(amount)
+            let formatedMoney = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+            }).format(money)
+            return formatedMoney
+        },
     },
     computed: {
         ...mapState('quotes', ['allQuotes']),
@@ -133,6 +158,19 @@ export default {
     },
     mounted() {
         this.getAllQuotes()
+        if (this.entityInfo.collectTaxes) {
+            this.columns.push(
+                {name: 'monto', label: 'Monto', align: 'left'},
+                {name: 'itbms', label: 'Itbms', align: 'left'},
+                {name: 'total', label: 'Total', align: 'left'},
+                {name: 'actions', label: 'Acciones', align: 'left'}
+            )
+            return
+        }
+        this.columns.push(
+            {name: 'monto', label: 'Total', align: 'left'},
+            {name: 'actions', label: 'Acciones', align: 'left'}
+        )
     },
 }
 </script>
